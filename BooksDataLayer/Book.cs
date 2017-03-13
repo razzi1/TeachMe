@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BooksDataLayer
@@ -9,6 +10,9 @@ namespace BooksDataLayer
         public string Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public DateTime PublishedDate { get; set; }
+        public int PublisherId { get; set; }
+        public Publisher Publisher { get; set; }
 
         public BookLevel Level { get; set; }
         public int Pages { get; set; }
