@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>علمني العربية</title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container" ng-app="app" ng-controller="IndexController as vm">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="text-center">علمني العربية - Teach me Arabic</h1>
+            </div>
+        </div>
+        <div ng-view></div>
+    </div>
+
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/bootstrap-collapse.js"></script>
+    <script src="app/index/index.module.js"></script>
+    <script src="app/common/dataFactory.js"></script>
+    <script src="app/index/index.controller.js"></script>
+    <script src="app/index/index.route.js"></script>
+    <script src="app/book/book.controller.js"></script>
+    <script src="app/booksearch/bookSearchCriteria.service.js"></script>
+    <script src="app/BookSearch/booksearch.controller.js"></script>
+    <script src="app/author/author.controller.js"></script>
+    <script src="app/studentLogin/studentLogin.controller.js"></script>
+</body>
+</html>
