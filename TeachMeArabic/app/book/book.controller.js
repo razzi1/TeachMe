@@ -6,12 +6,15 @@
     function BookController(dataFactory, $routeParams) {
         var vm = this;
         vm.isLoading = true;
+        vm.bookDetailsPanelIsVisible = true;
+        vm.searchPanelIsVisible = true;
 
         vm.firstPage = firstPage;
         vm.lastPage = lastPage;
         vm.nextPage = nextPage;
         vm.previousPage = previousPage;
         vm.goToPage = goToPage;
+        vm.toggleBookDetailsPanel = toggleBookDetailsPanel;
 
         getBook($routeParams.id);
 
@@ -21,7 +24,8 @@
                   vm.book = result.data;
                   vm.book.page = 1;
                   vm.isLoading = false;
-              },
+                        toggleBookDetailsPanel();
+                    },
               function (error) {
                   alert(error.message);
               });
@@ -48,6 +52,11 @@
         function previousPage() {
             vm.book.page--;
             if (vm.book.page < 1) vm.book.page = vm.book.pages;
+        }
+
+        function toggleBookDetailsPanel() {
+            $('#bookDetails').collapse("toggle");
+            vm.bookDetailsPanelIsVisible = !vm.bookDetailsPanelIsVisible;
         }
     }
 })();

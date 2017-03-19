@@ -1,9 +1,10 @@
 ﻿use Books
 go
 
-delete Authors
 delete BookAuthors
+delete Authors
 delete Books
+delete Publishers
 delete BookTypes
 delete Languages
 delete Parents
@@ -36,8 +37,6 @@ INSERT INTO [dbo].Languages(Name) Values(N'French (الفرنسية)')
 declare @languageId1 int = (select Id from Languages where Name = N'Arabic (العربية)')
 declare @languageId2 int = (select Id from Languages where Name = N'English (الإنجليزية)')
 
-
-
 INSERT INTO [dbo].[Authors] ([Fullname], [Biography]) VALUES (N'زين الدين محمد عبد الهادي', N'His mother Zainab was the only daughter of a fisherman from Port Said. His father worked for Al Ahram newspaper in Cairo from 1969 to 1993. Zain is the eldest of six brothers.
 In 1979, Abdul Hady obtained his B.A. (Bachelor of Arts) from the Department of Libraries and Information Science, the Faculty of Arts at Cairo University, with general mention very good. In 1995, he obtained his masters from the same department in the field of information science, the thesis of his master was titled Expert systems for reference services in IDSC Library. In 1998, he obtained his PhD degree in the field of information science; the thesis was titled The online databases industry in Egypt.
 Dr. Abdul Hady holds the academic rank of Professor, and he chaired as Head of the Department of Libraries and Information science in the Faculty of Arts, Helwan University, in Cairo.[1] He also held the post of the Information and System Development Consultant at the Arab Administrative Development Organization from 2005 until October 2008, and between May 2011 and May 2012 worked as Chairman of public authority of the Egyptian National Library and Archives.')
@@ -51,50 +50,60 @@ declare @authorId1 int = (select Id from [Authors] where [Fullname] = N'زين �
 declare @authorId2 int = (select Id from [Authors] where [Fullname] = N'Samir Abdel Fattah')
 declare @authorId3 int = (select Id from [Authors] where [Fullname] = N'Salwa Bakr')
 
+INSERT INTO [dbo].Publishers(Name, [Address], Phone) Values(N'Silver Dragon Books', '433 Caredean Dr, Horsham, PA 19044', '(215) 442-9094')
+INSERT INTO [dbo].Publishers(Name, [Address], Phone) Values(N'Lippincott Williams & Wilkins', '323 Norristown Rd #200, Ambler, PA 19002', '(215) 646-8700')
+INSERT INTO [dbo].Publishers(Name, [Address], Phone) Values(N'Infinity Publishing', '1094 New Dehaven St, Conshohocken, PA 19428', '(877) 289-2665')
+INSERT INTO [dbo].Publishers(Name, [Address], Phone) Values(N'Running Press Books', '2300 S 22nd St, Philadelphia, PA 19103', '(215) 567-5080')
+INSERT INTO [dbo].Publishers(Name, [Address], Phone) Values(N'Pearl River China Printing', '400 Lincoln Ave, Hatboro, PA 19040', '(888) 725-7817')
+declare @publisher1 int = (select Id from Publishers where Name = N'Silver Dragon Books')
+declare @publisher2 int = (select Id from Publishers where Name = N'Lippincott Williams & Wilkins')
+declare @publisher3 int = (select Id from Publishers where Name = N'Infinity Publishing')
+declare @publisher4 int = (select Id from Publishers where Name = N'Running Press Books')
+declare @publisher5 int = (select Id from Publishers where Name = N'Pearl River China Printing')
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'ArabicLetters', N'الحروف العربية', N'.هذا الكتاب يعلم الحروف العربية', 0, 3, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'ArabicLetters')
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId2, 'ArabicLetters')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-0', N'ArabicLetters', N'الحروف العربية', N'Arabic Alphabet, the first book in the I Love Arabic series, introduces young learners to the Arabic letters. This helpful and captivating book presents each letter with a delightful illustration, which ensures rapid and enjoyable learning. Arabic Alphabet is an exciting first book for young Arabic learners.هذا الكتاب يعلم الحروف العربية', 0, 12, @bookTypeId1, @languageId1, @publisher1, 2000)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-0'))
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId2, (select Id from Books where ISBN = '978-3-16-148410-0'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'ArabicWritting', N'الكتابة العربية', N'.هذا الكتاب يعلم الكتابة العربية', 2, 10, @bookTypeId2, @languageId2)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId2, 'ArabicWritting')
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId3, 'ArabicWritting')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-1', N'ArabicWritting', N'الكتابة العربية', N'.هذا الكتاب يعلم الكتابة العربية', 2, 10, @bookTypeId2, @languageId2, @publisher2, 2002)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId2, (select Id from Books where ISBN = '978-3-16-148410-1'))
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId3, (select Id from Books where ISBN = '978-3-16-148410-1'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'FeeloAbraha', N'Abraha فيل', N'', 1, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'FeeloAbraha')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-2', N'FeeloAbraha', N'Abraha فيل', N'', 1, 10, @bookTypeId1, @languageId1, @publisher3, 2003)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-2'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'HisneHaseen', N'حِصنِ حصين', N'', 2, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'HisneHaseen')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-3', N'HisneHaseen', N'حِصنِ حصين', N'', 2, 10, @bookTypeId1, @languageId1, @publisher4, 2014)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-3'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'InnaniAstatiou', N' أناأستطيع ', N'', 1, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'InnaniAstatiou')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-4', N'InnaniAstatiou', N' أناأستطيع ', N'', 1, 10, @bookTypeId1, @languageId1, @publisher5, 2015)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-4'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'IntabihiYaJoud', N'انتبه Djoud', N'', 1, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'IntabihiYaJoud')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-5', N'IntabihiYaJoud', N'انتبه Djoud', N'', 1, 10, @bookTypeId1, @languageId1, @publisher4, 2016)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-5'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'KalimatounNouhibbouha', N'كلمات نحبهأ Abraha', N'', 1, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'KalimatounNouhibbouha')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-6', N'KalimatounNouhibbouha', N'كلمات نحبهأ Abraha', N'', 1, 10, @bookTypeId1, @languageId1, @publisher3, 2013)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-6'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'LaTaklakYaBaba', N'أبي، لا تقلق', N'', 1, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'LaTaklakYaBaba')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-7', N'LaTaklakYaBaba', N'أبي، لا تقلق', N'', 1, 10, @bookTypeId1, @languageId1, @publisher2, 2017)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-7'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'LimadhaAnamouBakiran', N'لماذا يمكنني النوم في وقت مبكر', N'', 1, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'LimadhaAnamouBakiran')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-8', N'LimadhaAnamouBakiran', N'لماذا يمكنني النوم في وقت مبكر', N'', 1, 10, @bookTypeId1, @languageId1, @publisher1, 2014)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-8'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'ManFaalaHadha', N'من فعل هذا', N'', 1, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'ManFaalaHadha')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-9', N'ManFaalaHadha', N'من فعل هذا', N'', 1, 10, @bookTypeId1, @languageId1, @publisher3, 2015)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-9'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'ManYusaidouAddajaja', N'من الذى يساعد الدجاجة', N'', 1, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'ManYusaidouAddajaja')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148411-0', N'ManYusaidouAddajaja', N'من الذى يساعد الدجاجة', N'', 1, 10, @bookTypeId1, @languageId1, @publisher1, 2000)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148411-0'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'MeAndMyGrandma', N'Me And My Grandma', N'', 1, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'MeAndMyGrandma')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148412-0', N'MeAndMyGrandma', N'Me And My Grandma', N'', 1, 10, @bookTypeId1, @languageId1, @publisher1, 2009)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148412-0'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'SahihBoukhari', N'صحيح البخاري', N'', 3, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'SahihBoukhari')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148413-0', N'SahihBoukhari', N'صحيح البخاري', N'', 3, 10, @bookTypeId1, @languageId1, @publisher2, 2010)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148413-0'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'SalmaWaLayla', N'Salma Wa Layla', N'', 1, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'SalmaWaLayla')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148414-0', N'SalmaWaLayla', N'Salma Wa Layla', N'', 1, 10, @bookTypeId1, @languageId1, @publisher1, 2017)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148414-0'))
 
-INSERT INTO [dbo].[Books] ([Id], [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId]) VALUES (N'YasmineWaAlwahsh', N'Yasmine Wa Alwahsh', N'', 1, 10, @bookTypeId1, @languageId1)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, 'YasmineWaAlwahsh')
+INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148415-0', N'YasmineWaAlwahsh', N'Yasmine Wa Alwahsh', N'', 1, 10, @bookTypeId1, @languageId1, @publisher1, 2016)
+INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148415-0'))

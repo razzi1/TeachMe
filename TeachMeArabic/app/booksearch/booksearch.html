@@ -5,11 +5,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <h3 class="panel-title">Book Search</h3>
+                        <div class="col-sm-11">
+                            <h3 class="panel-title small">Book Search</h3>
                         </div>
-                        <div class="col-sm-6">
-                            <button type="button" class="pull-right btn btn-primary btn-sm" ng-click="vm.toggleSearchPanel()"><i ng-class="vm.searchPanelIsVisible ? ['glyphicon', 'glyphicon-collapse-up'] : ['glyphicon', 'glyphicon-collapse-down']"></i>&nbsp;{{vm.searchPanelIsVisible?'Hide':'Show'}}</button>
+                        <div class="col-sm-1">
+                            <button type="button" class="pull-right btn btn-link btn-sm" ng-click="vm.toggleSearchPanel()"><i ng-class="vm.searchPanelIsVisible ? ['glyphicon', 'glyphicon-collapse-up'] : ['glyphicon', 'glyphicon-collapse-down']"></i></button>
                         </div>
                     </div>
                     <div class="row" ng-show="!vm.isLoading && vm.Books.length == 0">
@@ -111,7 +111,7 @@
     <div ng-repeat="book in vm.Books" class="col-sm-4">
         <div class="panel panel-body" href="#/book/{{book.id}}" style="border: 1px solid gray">
             <a href="#/book/{{book.id}}">
-                <img class="img img-responsive img-rounded" ng-src="../../Images/{{book.id+'.jpg'}}" alt="{{vm.book.title}}" style="max-height: 150px;">
+                <img class="img img-responsive img-rounded" ng-src="../../Images/{{book.contentLocation + '.jpg'}}" alt="{{vm.book.title}}" style="width: 100%; height: 200px">
             </a>
             <div>
                 <h4 class="text-left text-success">{{book.title}}</h4>

@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Repository;
 
-namespace BooksDataLayer
+namespace BooksDataLayer.Entities
 {
-    public class Book
+    public class Book : IHaveId
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
+        public string ContentLocation { get; set; }
+        public string Isbn { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime PublishedDate { get; set; }
+        public int YearPublished { get; set; }
         public int PublisherId { get; set; }
         public Publisher Publisher { get; set; }
-
         public BookLevel Level { get; set; }
         public int Pages { get; set; }
         public int BookTypeId { get; set; }

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Repository;
 
-namespace BooksDataLayer
+namespace BooksDataLayer.Entities
 {
-    public class Author
+    public class Author : IHaveId
     {
         [Key]
         public int Id { get; set; }

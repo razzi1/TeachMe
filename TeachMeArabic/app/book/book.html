@@ -9,14 +9,38 @@
     <div ng-hide="vm.isLoading" class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <p>
-                    <h2 class="panel-title">Book title: {{vm.book.title}} Level: {{vm.book.level}}</h2>
-                </p>
+                <div class="row">
+                    <div class="col-sm-11">
+                        <h3 class="panel-title">Book details</h3>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="pull-right btn btn-link btn-sm" ng-click="vm.toggleBookDetailsPanel()"><i ng-class="vm.bookDetailsPanelIsVisible ? ['glyphicon', 'glyphicon-collapse-up'] : ['glyphicon', 'glyphicon-collapse-down']"></i></button>
+                    </div>
+                </div>
+                <div id="bookDetails" class="row panel-collapse collapse">
+                    <div class="col-sm-4">
+                        <h6 class="small"><strong>ISBN:</strong> {{vm.book.isbn}}</h6>
+                    </div>
+                    <div class="col-sm-4">
+                        <h6 class="small"><strong>Title:</strong> {{vm.book.title}}</h6>
+                    </div>
+                    <div class="col-sm-2">
+                        <h6 class="small"><strong>Language:</strong> {{vm.book.language.name}}</h6>
+                    </div>
+                    <div class="col-sm-2">
+                        <h6 class="small"><strong>Level:</strong> {{vm.book.level}}</h6>
+                    </div>
+                    <div class="col-sm-4">
+                        <h6 class="small"><strong>Published by:</strong> {{vm.book.publisher.name}} in year: {{vm.book.yearPublished}}</h6>
+                    </div>
+                    <div class="col-sm-8">
+                        <h6 class="small"><strong>Description:</strong> {{vm.book.description}}</h6>
+                    </div>                </div>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <img class="img img-responsive" ng-src="../../Images/{{vm.book.id + '-page'+ vm.book.page + '.jpg'}}" style="width: 100%">
+                        <img class="img img-responsive" ng-src="../../Images/{{vm.book.contentLocation + '-page'+ vm.book.page + '.jpg'}}" style="width: 100%">
                     </div>
                 </div>
             </div>

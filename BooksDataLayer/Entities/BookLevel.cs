@@ -1,4 +1,4 @@
-﻿namespace BooksDataLayer
+﻿namespace BooksDataLayer.Entities
 {
     public enum BookLevel
     {

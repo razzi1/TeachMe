@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Repository;
 
-namespace BooksDataLayer
+namespace BooksDataLayer.Entities
 {
-    public class Student
+    public class Student : IHaveId
     {
         [Key]
         public int Id { get; set; }

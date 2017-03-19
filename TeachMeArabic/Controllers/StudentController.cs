@@ -1,16 +1,23 @@
 ﻿using System.Linq;
 using BooksDataLayer;
 using System.Web.Http;
+using BooksDataLayer.Entities;
+using Repository;
 
 namespace TeachMeArabic.Controllers
 {
     public class StudentController : ApiController
     {
+        private readonly IRepository<Student> repository;
+
+        public StudentController(IRepository<Student> repository)
+        {
+            this.repository = repository;
+        }
 
         public IHttpActionResult Get(int id)
         {
-            BookRepository repository = new BookRepository();
-            var author = repository.GetAuthorById(id);
+            var author = repository.GetById(id);
             return Ok(author);
         }
     }

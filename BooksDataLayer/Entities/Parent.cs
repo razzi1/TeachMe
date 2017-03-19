@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Repository;
 
-namespace BooksDataLayer
+namespace BooksDataLayer.Entities
 {
-    public class Parent
+    public class Parent : IHaveId
     {
         public int Id { get; set; }
         public string Username { get; set; }

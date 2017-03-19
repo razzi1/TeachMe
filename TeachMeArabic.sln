@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeachMeArabic", "TeachMeAra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksDataLayer", "BooksDataLayer\BooksDataLayer.csproj", "{2F7FB453-7F7D-46E0-8D71-BF5C527C15E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{5244FEC0-5CEF-4F4C-BF33-8BBBF1F2D71B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryTests", "RepositoryTests\RepositoryTests.csproj", "{32EC8705-8302-4ECD-93C0-5E8FB1B65BB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{2F7FB453-7F7D-46E0-8D71-BF5C527C15E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F7FB453-7F7D-46E0-8D71-BF5C527C15E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F7FB453-7F7D-46E0-8D71-BF5C527C15E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5244FEC0-5CEF-4F4C-BF33-8BBBF1F2D71B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5244FEC0-5CEF-4F4C-BF33-8BBBF1F2D71B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5244FEC0-5CEF-4F4C-BF33-8BBBF1F2D71B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5244FEC0-5CEF-4F4C-BF33-8BBBF1F2D71B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32EC8705-8302-4ECD-93C0-5E8FB1B65BB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32EC8705-8302-4ECD-93C0-5E8FB1B65BB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32EC8705-8302-4ECD-93C0-5E8FB1B65BB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32EC8705-8302-4ECD-93C0-5E8FB1B65BB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
