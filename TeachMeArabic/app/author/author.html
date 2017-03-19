@@ -16,14 +16,14 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3 class="text-info">Books by author</h3>
-                        <div class="col-sm-4" ng-repeat="book in vm.author.books">
-                            <div class="panel panel-body" href="#/book/{{book.id}}" style="border: 1px solid gray">
-                                <a href="#/book/{{book.id}}">
-                                    <img class="img img-responsive img-rounded" ng-src="../../Images/{{book.id+'.jpg'}}" alt="{{vm.book.title}}" style="max-height: 150px;">
+                        <h3 class="text-info">Media by author</h3>
+                        <div class="col-sm-4" ng-repeat="media in vm.author.mediaList">
+                            <div class="panel panel-body" href="#/media/{{media.id}}" style="border: 1px solid gray">
+                                <a href="#/media/{{media.id}}">
+                                    <img class="img img-responsive img-rounded" ng-src="../../Images/{{media.id+'.jpg'}}" alt="{{vm.media.title}}" style="max-height: 150px;">
                                 </a>
                                 <div>
-                                    <h4 class="text-left text-success">{{book.title}}</h4>
+                                    <h4 class="text-left text-success">{{media.title}}</h4>
                                 </div>
                             </div>
                         </div>

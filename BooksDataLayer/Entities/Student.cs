@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Repository;
 
-namespace BooksDataLayer.Entities
+namespace MediaDataLayer.Entities
 {
     public class Student : IHaveId
     {
@@ -13,5 +14,6 @@ namespace BooksDataLayer.Entities
         public string Email { get; set; }
         public Parent Parent { get; set; }
         public int ParentId { get; set; }
+        public List<StudentMediaScore> MediaReadByStudent { get; set; }
     }
 }

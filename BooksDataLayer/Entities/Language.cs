@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Repository;
 
-namespace BooksDataLayer.Entities
+namespace MediaDataLayer.Entities
 {
     public class Language : IHaveId
     {

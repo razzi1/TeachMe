@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace BooksDataLayer
+namespace MediaDataLayer
 {
     public class Hash
     {

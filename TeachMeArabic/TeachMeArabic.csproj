@@ -107,10 +107,10 @@
   <ItemGroup>
     <Content Include="app\author\author.html" />
     <Content Include="app\author\author.controller.js" />
-    <Content Include="app\booksearch\booksearch.controller.js" />
-    <Content Include="app\booksearch\booksearch.html" />
-    <Content Include="app\book\book.controller.js" />
-    <Content Include="app\book\book.html" />
+    <Content Include="app\mediasearch\mediasearch.controller.js" />
+    <Content Include="app\mediasearch\mediasearch.html" />
+    <Content Include="app\media\media.controller.js" />
+    <Content Include="app\media\media.html" />
     <Content Include="app\common\dataFactory.js" />
     <Content Include="app\index\index-splash.html" />
     <Content Include="app\index\index.controller.js" />
@@ -181,7 +181,7 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
-    <Content Include="app\booksearch\bookSearchCriteria.service.js" />
+    <Content Include="app\mediasearch\mediaSearchCriteria.service.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -202,14 +202,14 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentLoginController.cs" />
-    <Compile Include="Controllers\BookTypesController.cs" />
+    <Compile Include="Controllers\MediaCategoriesController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
-    <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BookModel.cs" />
+    <Compile Include="Models\MediaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -229,9 +229,9 @@
     <Folder Include="Repository\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BooksDataLayer\BooksDataLayer.csproj">
+    <ProjectReference Include="..\BooksDataLayer\MediaDataLayer.csproj">
       <Project>{2f7fb453-7f7d-46e0-8d71-bf5c527c15e7}</Project>
-      <Name>BooksDataLayer</Name>
+      <Name>MediaDataLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{5244fec0-5cef-4f4c-bf33-8bbbf1f2d71b}</Project>

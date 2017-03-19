@@ -4,7 +4,7 @@
 	angular.module('app').factory("searchCriteria", function () {
 	    return {
 	        alreadySearched: false,
-			selectedBookType: null,
+			selectedCategory: null,
 			selectedLanguage: null,
 			title: null,
 			author: null,

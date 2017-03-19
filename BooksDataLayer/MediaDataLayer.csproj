@@ -7,8 +7,8 @@
     <ProjectGuid>{2F7FB453-7F7D-46E0-8D71-BF5C527C15E7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BooksDataLayer</RootNamespace>
-    <AssemblyName>BooksDataLayer</AssemblyName>
+    <RootNamespace>MediaDataLayer</RootNamespace>
+    <AssemblyName>MediaDataLayer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -50,13 +50,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Author.cs" />
-    <Compile Include="Entities\BookLevel.cs" />
+    <Compile Include="Entities\Media.cs" />
+    <Compile Include="Entities\MediaLevel.cs" />
+    <Compile Include="Entities\MediaCollection.cs" />
+    <Compile Include="Entities\StudentMediaScore.cs" />
     <Compile Include="Hash.cs" />
     <Compile Include="Entities\Language.cs" />
-    <Compile Include="Entities\BookType.cs" />
-    <Compile Include="Entities\Book.cs" />
-    <Compile Include="BookContext.cs" />
-    <Compile Include="BooksContextExtensions.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="NoonContext.cs" />
     <Compile Include="Entities\Parent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Login.cs" />

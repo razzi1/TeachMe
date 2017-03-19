@@ -1,6 +1,6 @@
-﻿namespace BooksDataLayer.Entities
+﻿namespace MediaDataLayer.Entities
 {
-    public enum BookLevel
+    public enum MediaLevel
     {
         Easy,
         Medium,

@@ -1,24 +1,25 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('app').controller('BookSearchController', ['dataFactory', 'searchCriteria', BookSearchController]);
+    angular.module('app').controller('MediaSearchController', ['dataFactory', 'searchCriteria', MediaSearchController]);
 
-    function BookSearchController(dataFactory, searchCriteria) {
+    function MediaSearchController(dataFactory, searchCriteria) {
         var vm = this;
         vm.isLoading = true;
         vm.isSearching = false;
         vm.searchPanelIsVisible = true;
-        vm.bookTypes = [];
+        vm.mediaCategories = [];
         vm.languages = [];
+        vm.mediaList = [];
         vm.search = searchCriteria;
-        vm.searchForBooks = searchForBooks;
+        vm.searchForMedia = searchForMedia;
         vm.toggleSearchPanel = toggleSearchPanel;
 
         loadLanguages();
-        loadBookTypes();
+        loadMediaCategories();
 
         if (vm.search.alreadySearched)
-            searchForBooks();
+            searchForMedia();
 
         $('#search').collapse("show");
 
@@ -35,12 +36,12 @@
               });
         }
 
-        function loadBookTypes() {
-            dataFactory.getBookTypes()
+        function loadMediaCategories() {
+            dataFactory.getMediaCategories()
               .then(function (result) {
-                  vm.bookTypes = result.data;
-                  if (vm.bookTypes.length > 0) {
-                      vm.search.selectedBookType = vm.bookTypes[0];
+                  vm.mediaCategories = result.data;
+                  if (vm.mediaCategories.length > 0) {
+                      vm.search.selectedCategory = vm.mediaCategories[0];
                   }
                   vm.isLoading = false;
                   toggleSearchPanel();
@@ -51,18 +52,18 @@
               });
         }
 
-        function searchForBooks() {
+        function searchForMedia() {
             vm.isSearching = true;
             dataFactory.search(vm.search)
                 .then(function (response) {
-                    vm.Books = response.data;
+                    vm.mediaList = response.data;
                     vm.isSearching = false;
                     vm.search.alreadySearched = true;
                     toggleSearchPanel();
                     toggleSearchPanel();
                 }, function (error) {
                     vm.isSearching = false;
-                    alert('Unable to load books: ' + error.message);
+                    alert('Unable to load media: ' + error.message);
                 });
         }
 

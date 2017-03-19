@@ -1,11 +1,11 @@
-﻿use Books
+﻿use Noon
 go
 
-delete BookAuthors
+delete MediaAuthors
 delete Authors
-delete Books
+delete Media
 delete Publishers
-delete BookTypes
+delete Categories
 delete Languages
 delete Parents
 delete Students
@@ -20,15 +20,15 @@ INSERT INTO [dbo].Students([Username], [EncryptedPassword], Fullname, Email, Par
 INSERT INTO [dbo].Students([Username], [EncryptedPassword], Fullname, Email, ParentId) Values(N'yazzi2', N'8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', N'Youcef Azzi', 'yasmine.azzi@gmail.com', @parentId1)
 INSERT INTO [dbo].Students([Username], [EncryptedPassword], Fullname, Email, ParentId) Values(N'mseridi', N'8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', N'Meriem Seridi', 'meriem.seridi@cool.com', @parentId2)
 
-INSERT INTO [dbo].BookTypes([Type]) Values(N'Language (اللغة)')
-INSERT INTO [dbo].BookTypes([Type]) Values(N'Fiction (خيال)')
-INSERT INTO [dbo].BookTypes([Type]) Values(N'Religion (دين)')
-INSERT INTO [dbo].BookTypes([Type]) Values(N'History (التاريخ)')
-INSERT INTO [dbo].BookTypes([Type]) Values(N'Mathematics (الرياضيات)')
-INSERT INTO [dbo].BookTypes([Type]) Values(N'Computer (الحاسوب)')
+INSERT INTO [dbo].Categories([Type]) Values(N'Language (اللغة)')
+INSERT INTO [dbo].Categories([Type]) Values(N'Fiction (خيال)')
+INSERT INTO [dbo].Categories([Type]) Values(N'Religion (دين)')
+INSERT INTO [dbo].Categories([Type]) Values(N'History (التاريخ)')
+INSERT INTO [dbo].Categories([Type]) Values(N'Mathematics (الرياضيات)')
+INSERT INTO [dbo].Categories([Type]) Values(N'Computer (الحاسوب)')
 
-declare @bookTypeId1 int = (select Id from BookTypes where [Type] = N'Language (اللغة)')
-declare @bookTypeId2 int = (select Id from BookTypes where [Type] = N'Religion (دين)')
+declare @categoryId1 int = (select Id from Categories where [Type] = N'Language (اللغة)')
+declare @categoryId2 int = (select Id from Categories where [Type] = N'Religion (دين)')
 
 INSERT INTO [dbo].Languages(Name) Values(N'Arabic (العربية)')
 INSERT INTO [dbo].Languages(Name) Values(N'English (الإنجليزية)')
@@ -36,6 +36,12 @@ INSERT INTO [dbo].Languages(Name) Values(N'French (الفرنسية)')
 
 declare @languageId1 int = (select Id from Languages where Name = N'Arabic (العربية)')
 declare @languageId2 int = (select Id from Languages where Name = N'English (الإنجليزية)')
+
+declare @MediaTypeText int = 0
+declare @MediaTypeHtml int = 1
+declare @MediaTypeImage int = 2
+declare @MediaTypeVideo int = 3
+
 
 INSERT INTO [dbo].[Authors] ([Fullname], [Biography]) VALUES (N'زين الدين محمد عبد الهادي', N'His mother Zainab was the only daughter of a fisherman from Port Said. His father worked for Al Ahram newspaper in Cairo from 1969 to 1993. Zain is the eldest of six brothers.
 In 1979, Abdul Hady obtained his B.A. (Bachelor of Arts) from the Department of Libraries and Information Science, the Faculty of Arts at Cairo University, with general mention very good. In 1995, he obtained his masters from the same department in the field of information science, the thesis of his master was titled Expert systems for reference services in IDSC Library. In 1998, he obtained his PhD degree in the field of information science; the thesis was titled The online databases industry in Egypt.
@@ -50,60 +56,79 @@ declare @authorId1 int = (select Id from [Authors] where [Fullname] = N'زين �
 declare @authorId2 int = (select Id from [Authors] where [Fullname] = N'Samir Abdel Fattah')
 declare @authorId3 int = (select Id from [Authors] where [Fullname] = N'Salwa Bakr')
 
-INSERT INTO [dbo].Publishers(Name, [Address], Phone) Values(N'Silver Dragon Books', '433 Caredean Dr, Horsham, PA 19044', '(215) 442-9094')
+INSERT INTO [dbo].Publishers(Name, [Address], Phone) Values(N'Silver Dragon Media', '433 Caredean Dr, Horsham, PA 19044', '(215) 442-9094')
 INSERT INTO [dbo].Publishers(Name, [Address], Phone) Values(N'Lippincott Williams & Wilkins', '323 Norristown Rd #200, Ambler, PA 19002', '(215) 646-8700')
 INSERT INTO [dbo].Publishers(Name, [Address], Phone) Values(N'Infinity Publishing', '1094 New Dehaven St, Conshohocken, PA 19428', '(877) 289-2665')
-INSERT INTO [dbo].Publishers(Name, [Address], Phone) Values(N'Running Press Books', '2300 S 22nd St, Philadelphia, PA 19103', '(215) 567-5080')
+INSERT INTO [dbo].Publishers(Name, [Address], Phone) Values(N'Running Press Media', '2300 S 22nd St, Philadelphia, PA 19103', '(215) 567-5080')
 INSERT INTO [dbo].Publishers(Name, [Address], Phone) Values(N'Pearl River China Printing', '400 Lincoln Ave, Hatboro, PA 19040', '(888) 725-7817')
-declare @publisher1 int = (select Id from Publishers where Name = N'Silver Dragon Books')
+declare @publisher1 int = (select Id from Publishers where Name = N'Silver Dragon Media')
 declare @publisher2 int = (select Id from Publishers where Name = N'Lippincott Williams & Wilkins')
 declare @publisher3 int = (select Id from Publishers where Name = N'Infinity Publishing')
-declare @publisher4 int = (select Id from Publishers where Name = N'Running Press Books')
+declare @publisher4 int = (select Id from Publishers where Name = N'Running Press Media')
 declare @publisher5 int = (select Id from Publishers where Name = N'Pearl River China Printing')
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-0', N'ArabicLetters', N'الحروف العربية', N'Arabic Alphabet, the first book in the I Love Arabic series, introduces young learners to the Arabic letters. This helpful and captivating book presents each letter with a delightful illustration, which ensures rapid and enjoyable learning. Arabic Alphabet is an exciting first book for young Arabic learners.هذا الكتاب يعلم الحروف العربية', 0, 12, @bookTypeId1, @languageId1, @publisher1, 2000)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-0'))
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId2, (select Id from Books where ISBN = '978-3-16-148410-0'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES (	'978-3-16-148410-0', N'ArabicLetters', N'الحروف العربية',
+				N'Arabic Alphabet, the first book in the I Love Arabic series, introduces young learners to the Arabic letters. This helpful and captivating book presents each letter with a delightful illustration, which ensures rapid and enjoyable learning. Arabic Alphabet is an exciting first book for young Arabic learners.هذا الكتاب يعلم الحروف العربية',
+				0, 12, @languageId1, @publisher1, 2000, 'True', 5.20, @MediaTypeImage, 'False', null)
+INSERT INTO [dbo].MediaCategories(Category_Id, Media_Id) Values(@categoryId1, (select Id from Media where ISBN = '978-3-16-148410-0'))
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-0'))
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId2, (select Id from Media where ISBN = '978-3-16-148410-0'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-1', N'ArabicWritting', N'الكتابة العربية', N'.هذا الكتاب يعلم الكتابة العربية', 2, 10, @bookTypeId2, @languageId2, @publisher2, 2002)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId2, (select Id from Books where ISBN = '978-3-16-148410-1'))
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId3, (select Id from Books where ISBN = '978-3-16-148410-1'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148410-1', N'ArabicWritting', N'الكتابة العربية', N'.هذا الكتاب يعلم الكتابة العربية', 2, 10, @languageId2, @publisher2, 2002, 'True', 3.85, @MediaTypeImage, 'False', null)
+INSERT INTO [dbo].MediaCategories(Category_Id, Media_Id) Values(@categoryId1, (select Id from Media where ISBN = '978-3-16-148410-1'))
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId2, (select Id from Media where ISBN = '978-3-16-148410-1'))
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId3, (select Id from Media where ISBN = '978-3-16-148410-1'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-2', N'FeeloAbraha', N'Abraha فيل', N'', 1, 10, @bookTypeId1, @languageId1, @publisher3, 2003)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-2'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148410-2', N'FeeloAbraha', N'Abraha فيل', N'', 1, 10, @languageId1, @publisher3, 2003, 'True', 4.95, @MediaTypeImage, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-2'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-3', N'HisneHaseen', N'حِصنِ حصين', N'', 2, 10, @bookTypeId1, @languageId1, @publisher4, 2014)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-3'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148410-3', N'HisneHaseen', N'حِصنِ حصين', N'', 2, 10, @languageId1, @publisher4, 2014, 'True', 30.00, @MediaTypeImage, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-3'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-4', N'InnaniAstatiou', N' أناأستطيع ', N'', 1, 10, @bookTypeId1, @languageId1, @publisher5, 2015)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-4'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148410-4', N'InnaniAstatiou', N' أناأستطيع ', N'', 1, 10, @languageId1, @publisher5, 2015, 'True', 2.50, @MediaTypeImage, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-4'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-5', N'IntabihiYaJoud', N'انتبه Djoud', N'', 1, 10, @bookTypeId1, @languageId1, @publisher4, 2016)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-5'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148410-5', N'IntabihiYaJoud', N'انتبه Djoud', N'', 1, 10, @languageId1, @publisher4, 2016, 'True', 0.00, @MediaTypeImage, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-5'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-6', N'KalimatounNouhibbouha', N'كلمات نحبهأ Abraha', N'', 1, 10, @bookTypeId1, @languageId1, @publisher3, 2013)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-6'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148410-6', N'KalimatounNouhibbouha', N'كلمات نحبهأ Abraha', N'', 1, 10, @languageId1, @publisher3, 2013, 'True', 0.00, @MediaTypeImage, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-6'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-7', N'LaTaklakYaBaba', N'أبي، لا تقلق', N'', 1, 10, @bookTypeId1, @languageId1, @publisher2, 2017)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-7'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148410-7', N'LaTaklakYaBaba', N'أبي، لا تقلق', N'', 1, 10, @languageId1, @publisher2, 2017, 'True', 0.00, @MediaTypeImage, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-7'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-8', N'LimadhaAnamouBakiran', N'لماذا يمكنني النوم في وقت مبكر', N'', 1, 10, @bookTypeId1, @languageId1, @publisher1, 2014)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-8'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148410-8', N'LimadhaAnamouBakiran', N'لماذا يمكنني النوم في وقت مبكر', N'', 1, 10, @languageId1, @publisher1, 2014, 'True', 0.00, @MediaTypeImage, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-8'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148410-9', N'ManFaalaHadha', N'من فعل هذا', N'', 1, 10, @bookTypeId1, @languageId1, @publisher3, 2015)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148410-9'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148410-9', N'ManFaalaHadha', N'من فعل هذا', N'', 1, 10, @languageId1, @publisher3, 2015, 'True', 0.00, @MediaTypeHtml, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-9'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148411-0', N'ManYusaidouAddajaja', N'من الذى يساعد الدجاجة', N'', 1, 10, @bookTypeId1, @languageId1, @publisher1, 2000)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148411-0'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148411-0', N'ManYusaidouAddajaja', N'من الذى يساعد الدجاجة', N'', 1, 10, @languageId1, @publisher1, 2000, 'True', 0.00, @MediaTypeVideo, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148411-0'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148412-0', N'MeAndMyGrandma', N'Me And My Grandma', N'', 1, 10, @bookTypeId1, @languageId1, @publisher1, 2009)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148412-0'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148412-0', N'MeAndMyGrandma', N'Me And My Grandma', N'', 1, 10, @languageId1, @publisher1, 2009, 'True', 0.00, @MediaTypeText, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148412-0'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148413-0', N'SahihBoukhari', N'صحيح البخاري', N'', 3, 10, @bookTypeId1, @languageId1, @publisher2, 2010)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148413-0'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148413-0', N'SahihBoukhari', N'صحيح البخاري', N'', 3, 10, @languageId1, @publisher2, 2010, 'True', 0.00, @MediaTypeImage, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148413-0'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148414-0', N'SalmaWaLayla', N'Salma Wa Layla', N'', 1, 10, @bookTypeId1, @languageId1, @publisher1, 2017)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148414-0'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148414-0', N'SalmaWaLayla', N'Salma Wa Layla', N'', 1, 10, @languageId1, @publisher1, 2017, 'True', 0.00, @MediaTypeVideo, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148414-0'))
 
-INSERT INTO [dbo].[Books] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [BookTypeId], [LanguageId], PublisherId, YearPublished) VALUES ('978-3-16-148415-0', N'YasmineWaAlwahsh', N'Yasmine Wa Alwahsh', N'', 1, 10, @bookTypeId1, @languageId1, @publisher1, 2016)
-INSERT INTO [dbo].BookAuthors(Author_Id, Book_Id) Values(@authorId1, (select Id from Books where ISBN = '978-3-16-148415-0'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148415-0', N'YasmineWaAlwahsh', N'Yasmine Wa Alwahsh', N'', 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148415-0'))

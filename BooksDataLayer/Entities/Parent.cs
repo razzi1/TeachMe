@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Repository;
 
-namespace BooksDataLayer.Entities
+namespace MediaDataLayer.Entities
 {
     public class Parent : IHaveId
     {

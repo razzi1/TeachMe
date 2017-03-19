@@ -1,7 +1,7 @@
 ﻿angular.module('app')
     .factory('dataFactory', ['$http', function ($http) {
 
-        var bookUrlBase = '/api/book';
+        var mediaUrlBase = '/api/media';
         var dataFactory = {};
 
         // Login
@@ -10,9 +10,9 @@
             return $http.post('/api/studentLogin', login);
         }
 
-        // BookTypes
-        dataFactory.getBookTypes = function () {
-            return $http.get('/api/bookTypes');
+        // Media Categories
+        dataFactory.getMediaCategories = function () {
+            return $http.get('/api/mediaCategories');
         };
 
         // Languages
@@ -20,29 +20,26 @@
             return $http.get('/api/languages');
         };
 
-        // Books
-        dataFactory.getBooks = function (search) {
-            return $http.get(bookUrlBase);
-        };
-
-        dataFactory.getBook = function (id) {
-            return $http.get(bookUrlBase + '/' + id);
-        };
-
-        dataFactory.insertBook = function (book) {
-            return $http.post(bookUrlBase, book);
-        };
-
-        dataFactory.updateBook = function (book) {
-            return $http.put(bookUrlBase + '/' + book.id, book);
-        };
+        // Media
 
         dataFactory.search = function (search) {
-            return $http.post(bookUrlBase, search);
+            return $http.post(mediaUrlBase, search);
         };
 
-        dataFactory.deleteBook = function (id) {
-            return $http.delete(bookUrlBase + '/' + id);
+        dataFactory.getMedia = function (id) {
+            return $http.get(mediaUrlBase + '/' + id);
+        };
+
+        dataFactory.insertMedia = function (media) {
+            return $http.post(mediaUrlBase, media);
+        };
+
+        dataFactory.updateMedia= function (media) {
+            return $http.put(mediaUrlBase + '/' + media.id, media);
+        };
+
+        dataFactory.deleteMedia = function (id) {
+            return $http.delete(mediaUrlBase + '/' + id);
         };
 
         // Authors

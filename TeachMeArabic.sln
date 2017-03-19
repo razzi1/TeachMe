@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeachMeArabic", "TeachMeArabic\TeachMeArabic.csproj", "{FF211AC1-6FD9-4E43-8318-1773BC3A84B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksDataLayer", "BooksDataLayer\BooksDataLayer.csproj", "{2F7FB453-7F7D-46E0-8D71-BF5C527C15E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaDataLayer", "BooksDataLayer\MediaDataLayer.csproj", "{2F7FB453-7F7D-46E0-8D71-BF5C527C15E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{5244FEC0-5CEF-4F4C-BF33-8BBBF1F2D71B}"
 EndProject

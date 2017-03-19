@@ -6,17 +6,17 @@
       .config(['$routeProvider',
         function ($routeProvider) {
             $routeProvider
-            .when('/booksearch',
+            .when('/mediasearch',
             {
-                templateUrl: 'app/booksearch/booksearch.html',
+                templateUrl: 'app/mediasearch/mediasearch.html',
                 controllerAs: 'vm',
-                controller: 'BookSearchController'
+                controller: 'MediaSearchController'
             })
-            .when('/book/:id',
+            .when('/media/:id',
             {
-                templateUrl: 'app/book/book.html',
+                templateUrl: 'app/media/media.html',
                 controllerAs: 'vm',
-                controller: 'BookController'
+                controller: 'MediaController'
             })
             .when('/author/:id',
             {
