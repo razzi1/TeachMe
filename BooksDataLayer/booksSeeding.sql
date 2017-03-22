@@ -114,7 +114,7 @@ INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Leve
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-9'))
 
 INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
-	VALUES ('978-3-16-148411-0', N'ManYusaidouAddajaja', N'من الذى يساعد الدجاجة', N'', 1, 10, @languageId1, @publisher1, 2000, 'True', 0.00, @MediaTypeVideo, 'False', null)
+	VALUES ('978-3-16-148411-0', N'ManYusaidouAddajaja', N'من الذى يساعد الدجاجة', N'', 1, 10, @languageId1, @publisher1, 2000, 'True', 0.00, @MediaTypeImage, 'False', null)
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148411-0'))
 
 INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
@@ -126,14 +126,56 @@ INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Leve
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148413-0'))
 
 INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
-	VALUES ('978-3-16-148414-0', N'SalmaWaLayla', N'Salma Wa Layla', N'', 1, 10, @languageId1, @publisher1, 2017, 'True', 0.00, @MediaTypeVideo, 'False', null)
+	VALUES ('978-3-16-148414-0', N'SalmaWaLayla', N'Salma Wa Layla', N'', 1, 10, @languageId1, @publisher1, 2017, 'True', 0.00, @MediaTypeImage, 'False', null)
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148414-0'))
 
 INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
 	VALUES ('978-3-16-148415-0', N'YasmineWaAlwahsh', N'Yasmine Wa Alwahsh', N'', 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeImage, 'False', null)
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148415-0'))
 
-declare @HtmlContent nvarchar(2500) = N'<div class="row"><div class="panel panel-default"><div class="panel-heading"><div class="row"><div class="col-sm-11"><h3 class="panel-title">Html Document header</h3></div></div></div><div class="panel-body"><div class="row"><div class="col-sm-12 well-sm"><p>This is a sample of an Html Content</p></div></div></div><div class="panel-footer"><div class="row"><div class="col-sm-11"><h3 class="panel-title">Html Document footer</h3></div></div></div></div></div>'
+declare @HtmlContent nvarchar(MAX) = N'
+<p>
+    <b>Algeria</b> (
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Arabic_language" class="mw-redirect" title="Arabic language">Arabic</a>
+    : <span lang="ar" dir="rtl">الجزائر</span>‎‎ <i><span title="Arabic transliteration" class="Unicode" style="white-space: normal; text-decoration: none">al-Jazā''ir</span></i>; 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Berber_languages" title="Berber languages">Berber</a>: <span lang="ber">ⴷⵣⴰⵢⴻⵔ</span>, <i>Dzayer</i>; 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/French_language" title="French language">French</a>
+    : <span lang="fr"><i>Algérie</i></span>
+    ), officially the <b>People''s Democratic Republic of Algeria</b>, is a 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Sovereign_state" title="Sovereign state">sovereign state</a>
+    in 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/North_Africa" title="North Africa">North Africa</a>
+    on the 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Mediterranean_Sea" title="Mediterranean Sea">Mediterranean coast</a>
+    . Its capital and most populous city is 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Algiers" title="Algiers">Algiers</a>
+    , located in the country''s far north. With an area of 2,381,741 square kilometres (919,595&nbsp;sq&nbsp;mi), Algeria is the 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_area" class="mw-redirect" title="List of countries and dependencies by area">tenth-largest country in the world</a>
+    , and the largest in Africa.<sup id="cite_ref-11" class="reference">
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Algeria#cite_note-11">[11]</a>
+    </sup> Algeria is bordered to the northeast by 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Tunisia" title="Tunisia">Tunisia</a>
+    , to the east by 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Libya" title="Libya">Libya</a>
+    , to the west by 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Morocco" title="Morocco">Morocco</a>
+    , to the southwest by the 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Western_Sahara" title="Western Sahara">Western Saharan</a>
+    territory, 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Mauritania" title="Mauritania">Mauritania</a>
+    , and 
+	<a target="_blank"  href="https://en.wikipedia.org/wiki/Mali" title="Mali">Mali</a>
+    , to the southeast by 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Niger" title="Niger">Niger</a>
+    , and to the north by the 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Mediterranean_Sea" title="Mediterranean Sea">Mediterranean Sea</a>
+    . The country is a 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Semi-presidential_system" title="Semi-presidential system">semi-presidential republic</a>
+    consisting of 48 provinces and 1,541 communes (counties). 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Abdelaziz_Bouteflika" title="Abdelaziz Bouteflika">Abdelaziz Bouteflika</a>
+     has been <a target="_blank"  href="https://en.wikipedia.org/wiki/President_of_Algeria" title="President of Algeria">President</a> since 1999.
+</p>
+'
 
 INSERT INTO [dbo].[Media] (ISBN,  Content, ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
 	VALUES ('978-3-16-148416-0', @HtmlContent, N'Html Document 1', N'This is an example of an Html type media', N'', 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
@@ -161,7 +203,7 @@ set @HtmlContent = '
 	  it forms a triad of cornerstone technologies for the 
 	<a href="https://en.wikipedia.org/wiki/World_Wide_Web" target="_blank" title="World Wide Web">World Wide Web</a>
 	  .<sup id="cite_ref-1" class="reference">
-	<a href="#cite_note-1">[1]</a></sup> 
+	<a href="https://en.wikipedia.org/wiki/HTML#cite_note-1">[1]</a></sup> 
 	<a href="https://en.wikipedia.org/wiki/Web_browser" target="_blank" title="Web browser">Web browsers</a>
 	   receive HTML documents from a 
 	<a href="https://en.wikipedia.org/wiki/Webserver" target="_blank" class="mw-redirect" title="Webserver">webserver</a>

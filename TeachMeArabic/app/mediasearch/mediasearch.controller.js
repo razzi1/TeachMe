@@ -5,6 +5,13 @@
 
     function MediaSearchController(dataFactory, searchCriteria) {
         var vm = this;
+        vm.mediaTypes =
+        {
+            Text: 0,
+            Html: 1,
+            Image: 2,
+            Video: 3
+        };
         vm.isLoading = true;
         vm.isSearching = false;
         vm.searchPanelIsVisible = true;
