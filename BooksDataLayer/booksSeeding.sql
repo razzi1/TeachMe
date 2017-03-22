@@ -177,8 +177,17 @@ declare @HtmlContent nvarchar(MAX) = N'
 </p>
 '
 
+declare @MediaDescription nvarchar(Max) = 
+N'
+<p>
+    <b>Algeria</b> (
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Arabic_language" class="mw-redirect" title="Arabic language">Arabic</a>
+    : <span lang="ar" dir="rtl">الجزائر</span>‎‎ <i><span title="Arabic transliteration" class="Unicode" style="white-space: normal; text-decoration: none">al-Jazā''ir</span></i>; 
+</p>
+'
+
 INSERT INTO [dbo].[Media] (ISBN,  Content, ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
-	VALUES ('978-3-16-148416-0', @HtmlContent, N'Html Document 1', N'This is an example of an Html type media', N'', 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
+	VALUES ('978-3-16-148416-0', @HtmlContent, N'Html Document 1', N'This is an example of an Html type media', @MediaDescription, 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148416-0'))
 
 INSERT INTO [dbo].[Media] (ISBN,  Content, ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
@@ -212,7 +221,20 @@ set @HtmlContent = '
 	 and originally included cues for the appearance of the document.
 </p>
 '
+set @MediaDescription =
+'
+<p>
+	<b>HyperText Markup Language</b> (<b>HTML</b>) is the standard
+	<a href="https://en.wikipedia.org/wiki/Markup_language" target="_blank" title="Markup language">markup language</a>
+		for creating 
+	<a href="https://en.wikipedia.org/wiki/Web_page" target="_blank" title="Web page">web pages</a>
+	  and 
+	<a href="https://en.wikipedia.org/wiki/Web_application" target="_blank" title="Web application">web applications</a>
+	  .
+</p>
+'
+
 INSERT INTO [dbo].[Media] (ISBN,  Content, ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
-	VALUES ('978-3-16-148418-0', @HtmlContent, N'Html Document 2', N'This is an example of an Html type media', N'', 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
+	VALUES ('978-3-16-148418-0', @HtmlContent, N'Html Document 2', N'This is an example of an Html type media', @MediaDescription, 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148418-0'))
 
