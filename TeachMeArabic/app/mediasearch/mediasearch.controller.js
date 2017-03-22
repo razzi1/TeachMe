@@ -44,8 +44,6 @@
                       vm.search.selectedCategory = vm.mediaCategories[0];
                   }
                   vm.isLoading = false;
-                  toggleSearchPanel();
-                  toggleSearchPanel();
               },
               function (error) {
                   alert(error.message);
@@ -54,13 +52,13 @@
 
         function searchForMedia() {
             vm.isSearching = true;
+            vm.isLoading = true;
             dataFactory.search(vm.search)
                 .then(function (response) {
                     vm.mediaList = response.data;
                     vm.isSearching = false;
                     vm.search.alreadySearched = true;
-                    toggleSearchPanel();
-                    toggleSearchPanel();
+                    vm.isLoading = false;
                 }, function (error) {
                     vm.isSearching = false;
                     alert('Unable to load media: ' + error.message);

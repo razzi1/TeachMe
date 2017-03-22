@@ -19,15 +19,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" ng-show="vm.isLoading">
+                        <div class="col-sm-offset-1 col-sm-11 alert alert-warning">
+                            <div class="text-center">Please wait while loading media information...</div>
+                            <div><img class="center-block" id="spinner" src="../../Images/ajax-loader.gif"></div>
+                        </div>
+                    </div>
                 </div>
                 <div id="search" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <div class="row" ng-show="vm.isLoading">
-                            <div class="col-sm-offset-1 col-sm-11 alert alert-warning">
-                                <div class="text-center">Please wait while loading media information...</div>
-                                <div><img class="center-block" id="spinner" src="../../Images/ajax-loader.gif"></div>
-                            </div>
-                        </div>
                         <div ng-hide="vm.isLoading">
                             <div class="row">
                                 <div class="form-group col-sm-2">
