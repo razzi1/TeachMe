@@ -14,6 +14,7 @@ namespace TeachMeArabic.Models
         public bool IsFree { get; set; }
         public decimal Price { get; set; }
         public MediaType MediaType { get; set; }
+        public string Content { get; set; }
         public string ContentLocation { get; set; }
         public int YearPublished { get; set; }
         public Publisher Publisher { get; set; }

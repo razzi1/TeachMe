@@ -1,21 +1,25 @@
-﻿using MediaDataLayer.Entities;
+﻿using System.Data.Entity;
+using System.Linq;
+using MediaDataLayer.Entities;
 using Repository;
 using System.Web.Http;
-using MediaDataLayer.Entities;
 
 namespace TeachMeArabic.Controllers
 {
     public class AuthorController : ApiController
     {
-        private readonly IRepository<Author> repository;
+        private readonly IRepository repository;
 
-        public AuthorController(IRepository<Author> repository)
+        public AuthorController(IRepository repository)
         {
             this.repository = repository;
         }
         public IHttpActionResult Get(int id)
         {
-            var author = repository.GetById(id);
+            var author = repository
+                .GetAll<Author>()
+                .Include(a => a.MediaList)
+                .Single(a => a.Id == id);
             return Ok(author);
         }
     }

@@ -10,7 +10,7 @@ namespace RepositoryTests
     [TestFixture]
     public class WhenUsingRepositoryOfTypeT
     {
-        private Repository<MyEntity> sut;
+        private Repository.Repository sut;
         private IDbConctext dbContext;
 
         [SetUp]
@@ -23,20 +23,20 @@ namespace RepositoryTests
             dbContext = A.Fake<IDbConctext>();
             A.CallTo(() => dbContext.Set<MyEntity>()).Returns(dbSet);
 
-            sut = new Repository<MyEntity>(dbContext);
+            sut = new Repository.Repository(dbContext);
         }
 
         [Test]
         public void GetAllReturnsAllEntitiesOfTypeT()
         {
-            var result = sut.GetAll();
+            var result = sut.GetAll<MyEntity>();
             result.Select( me => me.Id).ShouldBeEquivalentTo( new [] {1, 2});
         }
 
         [Test]
         public void GetByIdReturnsTheCorrectInstance()
         {
-            var result = sut.GetById(1);
+            var result = sut.GetById<MyEntity>(1);
             result.Id.Should().Be(1);
         }
 

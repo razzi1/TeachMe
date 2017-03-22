@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Linq;
-using MediaDataLayer;
 using System.Web.Http;
+using MediaDataLayer;
 using MediaDataLayer.Entities;
 using Repository;
 
@@ -9,10 +9,10 @@ namespace TeachMeArabic.Controllers
 {
     public class StudentLoginController : ApiController
     {
-        private readonly IRepository<Student> repository;
+        private readonly IRepository repository;
         private const int StudentNotFound = 0;
 
-        public StudentLoginController(IRepository<Student> repository)
+        public StudentLoginController(IRepository repository)
         {
             this.repository = repository;
         }
@@ -22,7 +22,7 @@ namespace TeachMeArabic.Controllers
         {
             var encryptedPassword = Hash.GetHashSha256(login.Password);
             var student = repository
-                .GetAll()
+                .GetAll<Student>()
                 .Include(s => s.Parent)
                 .SingleOrDefault(s => s.Username == login.Username && s.EncryptedPassword == encryptedPassword);
             return student != null ? Ok(new { IsSuccessful = true, StudentId = student.Id }) : Ok(new { IsSuccessful = false, StudentId = StudentNotFound });

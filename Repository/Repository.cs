@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Repository
 {
-    public class Repository<T> : IRepository<T> where T : class, IHaveId
+    public class Repository : IRepository
     {
         private readonly IDbConctext dbContext;
 
@@ -12,12 +12,12 @@ namespace Repository
             this.dbContext = dbContext;
         }
 
-        public T GetById(int id)
+        public T GetById<T>(int id) where T : class, IHaveId
         {
             return dbContext.Set<T>().Single(entity => entity.Id == id);
         }
 
-        public IQueryable<T> GetAll()
+        public IQueryable<T>GetAll<T>() where T : class, IHaveId
         {
             return dbContext.Set<T>();
         }

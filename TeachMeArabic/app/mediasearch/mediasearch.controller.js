@@ -10,7 +10,7 @@
         vm.searchPanelIsVisible = true;
         vm.mediaCategories = [];
         vm.languages = [];
-        vm.mediaList = [];
+        vm.mediaList = null;
         vm.search = searchCriteria;
         vm.searchForMedia = searchForMedia;
         vm.toggleSearchPanel = toggleSearchPanel;

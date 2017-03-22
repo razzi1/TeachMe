@@ -32,15 +32,15 @@ namespace MediaDataLayer
                     m.ToTable("MediaCategories");
                 });
 
-            modelBuilder.Entity<Media>()
-                .HasMany(me => me.Authors)
-                .WithMany()
-                .Map(m =>
-                {
-                    m.MapLeftKey("Media_Id");
-                    m.MapRightKey("Author_Id");
-                    m.ToTable("MediaAuthors");
-                });
+            //modelBuilder.Entity<Media>()
+            //    .HasMany(me => me.Authors)
+            //    .WithMany()
+            //    .Map(m =>
+            //    {
+            //        m.MapLeftKey("Media_Id");
+            //        m.MapRightKey("Author_Id");
+            //        m.ToTable("MediaAuthors");
+            //    });
         }
 
         IDbSet<TEntity> IDbConctext.Set<TEntity>()

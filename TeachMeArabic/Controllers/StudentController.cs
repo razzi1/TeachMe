@@ -8,16 +8,16 @@ namespace TeachMeArabic.Controllers
 {
     public class StudentController : ApiController
     {
-        private readonly IRepository<Student> repository;
+        private readonly IRepository repository;
 
-        public StudentController(IRepository<Student> repository)
+        public StudentController(IRepository repository)
         {
             this.repository = repository;
         }
 
         public IHttpActionResult Get(int id)
         {
-            var author = repository.GetById(id);
+            var author = repository.GetById<Student>(id);
             return Ok(author);
         }
     }

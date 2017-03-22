@@ -5,6 +5,13 @@
 
     function MediaController(dataFactory, $routeParams) {
         var vm = this;
+        vm.mediaTypes = 
+        {
+            Text : 0,
+            Html : 1,
+            Image : 2,
+            Video : 3
+        };
         vm.isLoading = true;
         vm.mediaDetailsPanelIsVisible = true;
         vm.searchPanelIsVisible = true;

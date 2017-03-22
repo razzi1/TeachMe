@@ -20,7 +20,7 @@
                         <div class="col-sm-4" ng-repeat="media in vm.author.mediaList">
                             <div class="panel panel-body" href="#/media/{{media.id}}" style="border: 1px solid gray">
                                 <a href="#/media/{{media.id}}">
-                                    <img class="img img-responsive img-rounded" ng-src="../../Images/{{media.id+'.jpg'}}" alt="{{vm.media.title}}" style="max-height: 150px;">
+                                    <img class="img img-responsive img-rounded" ng-src="../../Images/{{media.contentLocation+'.jpg'}}" alt="{{vm.media.title}}" style="max-height: 150px;">
                                 </a>
                                 <div>
                                     <h4 class="text-left text-success">{{media.title}}</h4>

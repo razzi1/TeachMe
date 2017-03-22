@@ -2,10 +2,10 @@
 
 namespace Repository
 {
-    public interface IRepository<out T> where T : class, IHaveId
+    public interface IRepository
     {
-        T GetById(int id);
-        IQueryable<T> GetAll();
+        T GetById<T>(int id) where T : class, IHaveId;
+        IQueryable<T> GetAll<T>() where T : class, IHaveId;
         void SaveChanges();
     }
 }

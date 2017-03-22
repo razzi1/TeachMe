@@ -35,12 +35,23 @@
                     </div>
                     <div class="col-sm-8">
                         <h6 class="small"><strong>Description:</strong> {{vm.media.description}}</h6>
-                    </div>                </div>
+                    </div>
+                </div>
             </div>
             <div class="panel-body">
-                <div class="row">
+                <div ng-show="vm.media.mediaType == vm.mediaTypes.Image" class="row">
                     <div class="col-sm-12">
                         <img class="img img-responsive" ng-src="../../Images/{{vm.media.contentLocation + '-page'+ vm.media.page + '.jpg'}}" style="width: 100%">
+                    </div>
+                </div>
+                <div ng-show="vm.media.mediaType == vm.mediaTypes.Text" class="row">
+                    <div class="col-sm-12 well-sm">
+                        <p>{{vm.media.content}}</p>
+                    </div>
+                </div>
+                <div ng-show="vm.media.mediaType == vm.mediaTypes.Html" class="row">
+                    <div class="col-sm-offset-1 col-sm-10 well-sm">
+                        <p  ng-bind-html="vm.media.content"></p>
                     </div>
                 </div>
             </div>

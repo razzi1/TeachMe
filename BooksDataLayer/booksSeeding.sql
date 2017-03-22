@@ -110,7 +110,7 @@ INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Leve
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-8'))
 
 INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
-	VALUES ('978-3-16-148410-9', N'ManFaalaHadha', N'من فعل هذا', N'', 1, 10, @languageId1, @publisher3, 2015, 'True', 0.00, @MediaTypeHtml, 'False', null)
+	VALUES ('978-3-16-148410-9', N'ManFaalaHadha', N'من فعل هذا', N'', 1, 10, @languageId1, @publisher3, 2015, 'True', 0.00, @MediaTypeImage, 'False', null)
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-9'))
 
 INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
@@ -130,5 +130,47 @@ INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Leve
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148414-0'))
 
 INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
-	VALUES ('978-3-16-148415-0', N'YasmineWaAlwahsh', N'Yasmine Wa Alwahsh', N'', 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
+	VALUES ('978-3-16-148415-0', N'YasmineWaAlwahsh', N'Yasmine Wa Alwahsh', N'', 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeImage, 'False', null)
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148415-0'))
+
+declare @HtmlContent nvarchar(2500) = N'<div class="row"><div class="panel panel-default"><div class="panel-heading"><div class="row"><div class="col-sm-11"><h3 class="panel-title">Html Document header</h3></div></div></div><div class="panel-body"><div class="row"><div class="col-sm-12 well-sm"><p>This is a sample of an Html Content</p></div></div></div><div class="panel-footer"><div class="row"><div class="col-sm-11"><h3 class="panel-title">Html Document footer</h3></div></div></div></div></div>'
+
+INSERT INTO [dbo].[Media] (ISBN,  Content, ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148416-0', @HtmlContent, N'Html Document 1', N'This is an example of an Html type media', N'', 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148416-0'))
+
+INSERT INTO [dbo].[Media] (ISBN,  Content, ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148417-0', N'This is the content of a text document. Salwa Bakr (born 1949) is an Egyptian critic, novelist and author.[1] She was born in the Matariyya district in Cairo in 1949. Her father was a railway worker. She studied business at Ain Shams University, gaining a BA degree in 1972. She went on to earn another BA in literary criticism in 1976, before embarking on a career in journalism. She worked as a film and theatre critic for various Arabic newspapers and magazines. Bakr lived in Cyprus for a few years with her husband before returning to Egypt in the mid-1980s.
+Bakr''s father died early, leaving her mother a poor widow. Her work often deals with the lives of the impoverished and the marginalized.[2] In 1985, she published her first collection of short stories, Zinat at the President''s Funeral, which was an immediate success. She has published several collections of short stories since. Her debut novel was called Wasf al-Bulbul (1993).
+Salwa Bakr is married with children and lives in Cairo.', N'Text Document 1', N'This is an example of a text type media', N'Text Document 1', 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeText, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148417-0'))
+
+
+set @HtmlContent = '
+<p>
+	<b>HyperText Markup Language</b> (<b>HTML</b>) is the standard
+	<a href="https://en.wikipedia.org/wiki/Markup_language" target="_blank" title="Markup language">markup language</a>
+		for creating 
+	<a href="https://en.wikipedia.org/wiki/Web_page" target="_blank" title="Web page">web pages</a>
+	  and 
+	<a href="https://en.wikipedia.org/wiki/Web_application" target="_blank" title="Web application">web applications</a>
+	  . With
+	<a href="https://en.wikipedia.org/wiki/Cascading_Style_Sheets" target="_blank" title="Cascading Style Sheets">Cascading Style Sheets</a>
+	 (CSS) and 
+	<a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank" title="JavaScript">JavaScript</a>
+	  it forms a triad of cornerstone technologies for the 
+	<a href="https://en.wikipedia.org/wiki/World_Wide_Web" target="_blank" title="World Wide Web">World Wide Web</a>
+	  .<sup id="cite_ref-1" class="reference">
+	<a href="#cite_note-1">[1]</a></sup> 
+	<a href="https://en.wikipedia.org/wiki/Web_browser" target="_blank" title="Web browser">Web browsers</a>
+	   receive HTML documents from a 
+	<a href="https://en.wikipedia.org/wiki/Webserver" target="_blank" class="mw-redirect" title="Webserver">webserver</a>
+	    or from local storage and render them into multimedia web pages. HTML describes the structure of a web page 
+	<a href="https://en.wikipedia.org/wiki/Semantic" target="_blank" class="mw-redirect" title="Semantic">semantically</a>
+	 and originally included cues for the appearance of the document.
+</p>
+'
+INSERT INTO [dbo].[Media] (ISBN,  Content, ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148418-0', @HtmlContent, N'Html Document 2', N'This is an example of an Html type media', N'', 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148418-0'))
+
