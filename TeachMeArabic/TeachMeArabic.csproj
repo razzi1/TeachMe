@@ -107,6 +107,8 @@
   <ItemGroup>
     <Content Include="app\author\author.html" />
     <Content Include="app\author\author.controller.js" />
+    <Content Include="app\directives\pagination\pagination.html" />
+    <Content Include="app\directives\pagination\pagination.js" />
     <Content Include="app\mediasearch\mediasearch.controller.js" />
     <Content Include="app\mediasearch\mediasearch.html" />
     <Content Include="app\media\media.controller.js" />

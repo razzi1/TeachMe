@@ -24,15 +24,27 @@ namespace TeachMeArabic.Controllers
             var mediaList = repository.GetAll<Media>()
                 .Where(me =>
                     (search.SelectedLanguage.Equals("All (الكل)") || me.Language.Name == search.SelectedLanguage) &&
-                    (search.SelectedCategory.Equals("All (الكل)") || me.Categories.Any(mc => mc.Type == search.SelectedCategory)) &&
-                    (string.IsNullOrEmpty(search.Title) || me.Title.Contains(search.Title) || me.Description.Contains(search.Title)) &&
+                    (search.SelectedCategory.Equals("All (الكل)") ||
+                     me.Categories.Any(mc => mc.Type == search.SelectedCategory)) &&
+                    (string.IsNullOrEmpty(search.Title) || me.Title.Contains(search.Title) ||
+                     me.Description.Contains(search.Title)) &&
                     (string.IsNullOrEmpty(search.Author) || me.Authors.Any(a => a.Fullname.Contains(search.Author))))
-                .ToList();
+                .OrderBy(me => me.Id)
+                .Skip(search.Offset)
+                .Take(search.Limit);
 
             var result = mediaList
                 .Select(Mapper.Map<Media, MediaSeachModel>)
                 .ToList();
             return Ok(result);
+        }
+
+        public IHttpActionResult Get()
+        {
+            var mediaCount = repository
+                .GetAll<Media>()
+                .Count();
+            return Ok(new { mediaCount = mediaCount });
         }
 
         public IHttpActionResult Get(int id)

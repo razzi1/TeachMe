@@ -1,9 +1,9 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('app').controller('MediaSearchController', ['dataFactory', 'searchCriteria', MediaSearchController]);
+    angular.module('app').controller('MediaSearchController', ['$scope', 'dataFactory', 'searchCriteria', MediaSearchController]);
 
-    function MediaSearchController(dataFactory, searchCriteria) {
+    function MediaSearchController($scope, dataFactory, searchCriteria) {
         var vm = this;
         vm.mediaTypes =
         {
@@ -22,6 +22,13 @@
         vm.searchForMedia = searchForMedia;
         vm.toggleSearchPanel = toggleSearchPanel;
 
+        getMediaCount();
+        $scope.numPerPage = 6;
+        $scope.setPage = function () {
+            $scope.data = getMediaPage(($scope.currentPage - 1) * $scope.numPerPage, $scope.numPerPage);
+        };
+        $scope.$watch('currentPage', $scope.setPage);
+
         loadLanguages();
         loadMediaCategories();
 
@@ -29,6 +36,16 @@
             searchForMedia();
 
         $('#search').collapse("show");
+
+        function getMediaCount() {
+            dataFactory.getMediaCount()
+              .then(function (result) {
+                  $scope.noOfPages = Math.ceil(result.data.mediaCount / $scope.numPerPage);
+              },
+              function (error) {
+                  alert(error.message);
+              });
+        }
 
         function loadLanguages() {
             dataFactory.getLanguages()
@@ -57,6 +74,12 @@
               });
         }
 
+        function getMediaPage(offset, limit) {
+            vm.search.offset = offset;
+            vm.search.limit = limit;
+            return searchForMedia();
+        }
+
         function searchForMedia() {
             vm.isSearching = true;
             vm.isLoading = true;
@@ -64,6 +87,8 @@
                 .then(function (response) {
                     vm.mediaList = response.data;
                     vm.isSearching = false;
+                    if (!vm.search.alreadySearched)
+                        $scope.currentPage = 1;
                     vm.search.alreadySearched = true;
                     vm.isLoading = false;
                 }, function (error) {

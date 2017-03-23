@@ -105,18 +105,32 @@
     </div>
 </div>
 <!-- Media list-->
-<div ng-hide="!vm.mediaList || vm.mediaList.length == 0" class="row">
-    <div ng-repeat="media in vm.mediaList" class="col-sm-4">
-        <div class="panel panel-body" href="#/media/{{media.id}}" style="border: 1px solid gray">
-            <a href="#/media/{{media.id}}">
-                <div class="row">
-                    <img ng-show="media.mediaType == vm.mediaTypes.Image" class="img img-responsive img-rounded" ng-src="../../Images/{{media.contentLocation + '.jpg'}}" alt="{{vm.media.title}}" style="width: 100%; height: 200px">
-                    <p ng-show="media.mediaType == vm.mediaTypes.Text" class="text-danger well-sm">{{media.description }}</p>
-                    <p ng-show="media.mediaType == vm.mediaTypes.Html" ng-bind-html="media.description" class="text-danger well-sm"></p>
+<div ng-hide="!vm.mediaList || vm.mediaList.length == 0">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <pagination num-pages="noOfPages" current-page="currentPage" class="pagination"></pagination>
                 </div>
-            </a>
-            <div>
-                <h4 class="text-left text-success">{{media.title}}</h4>
+                <div class="panel-body">
+                    <div ng-repeat="media in vm.mediaList" class="col-sm-4">
+                        <div class="panel panel-body" href="#/media/{{media.id}}" style="border: 1px solid gray">
+                            <a href="#/media/{{media.id}}">
+                                <div class="row">
+                                    <img ng-show="media.mediaType == vm.mediaTypes.Image" class="img img-responsive img-rounded" ng-src="../../Images/{{media.contentLocation + '.jpg'}}" alt="{{vm.media.title}}" style="width: 100%; height: 200px">
+                                    <p ng-show="media.mediaType == vm.mediaTypes.Text" class="text-danger well-sm">{{media.description }}</p>
+                                    <p ng-show="media.mediaType == vm.mediaTypes.Html" ng-bind-html="media.description" class="text-danger well-sm"></p>
+                                </div>
+                            </a>
+                            <div>
+                                <h4 class="text-left text-success">{{media.title}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <pagination num-pages="noOfPages" current-page="currentPage" class="pagination-sm"></pagination>
+                </div>
             </div>
         </div>
     </div>

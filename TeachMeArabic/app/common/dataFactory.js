@@ -26,6 +26,10 @@
             return $http.post(mediaUrlBase, search);
         };
 
+        dataFactory.getMediaCount = function () {
+            return $http.get(mediaUrlBase);
+        };
+
         dataFactory.getMedia = function (id) {
             return $http.get(mediaUrlBase + '/' + id);
         };
