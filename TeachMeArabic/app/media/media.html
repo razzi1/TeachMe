@@ -46,12 +46,12 @@
                 </div>
                 <div ng-show="vm.media.mediaType == vm.mediaTypes.Text" class="row">
                     <div class="col-sm-12 well-sm">
-                        <p>{{vm.media.content}}</p>
+                        <p>{{vm.media.contentPages[vm.media.page-1].content}}</p>
                     </div>
                 </div>
                 <div ng-show="vm.media.mediaType == vm.mediaTypes.Html" class="row">
                     <div class="col-sm-offset-1 col-sm-10 well-sm">
-                        <p  ng-bind-html="vm.media.content"></p>
+                        <p  ng-bind-html="vm.media.contentPages[vm.media.page-1].content"></p>
                     </div>
                 </div>
             </div>

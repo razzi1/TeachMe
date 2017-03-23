@@ -104,8 +104,8 @@
             dataFactory.getMediaCount(vm.search)
                 .then(function (result) {
                     $scope.noOfPages = Math.ceil(result.data.mediaCount / $scope.numPerPage);
-                        getMediaPageFromDataStore();
-                    }, function (error) {
+                    getMediaPageFromDataStore();
+                }, function (error) {
                     vm.isSearching = false;
                     alert('Unable to search for media: ' + error.message);
                 }

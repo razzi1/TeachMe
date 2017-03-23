@@ -1,6 +1,8 @@
 ﻿use Noon
 go
 
+delete ContentPages
+delete Chapters
 delete MediaAuthors
 delete Authors
 delete Media
@@ -185,16 +187,31 @@ N'
     : <span lang="ar" dir="rtl">الجزائر</span>‎‎ <i><span title="Arabic transliteration" class="Unicode" style="white-space: normal; text-decoration: none">al-Jazā''ir</span></i>; 
 </p>
 '
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148416-0', null, N'This is an example of an Html type media', @MediaDescription, 1, 3, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
+declare @mediaId int = (select Id from media where ISBN = '978-3-16-148416-0')
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 1 - Algeria Introduction (Html)', @mediaId, 1)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 2 - Algeria Details (Html)', @mediaId, 2)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 3 - Algeria Conclusion (Html)', @mediaId, 3)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 1, N'<p><b>Page 1</b></p>' + @HtmlContent)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 2, N'<p><b>Page 2</b></p>' + @HtmlContent)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 3, N'<p><b>Page 3</b></p>' + @HtmlContent)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, @mediaId)
 
-INSERT INTO [dbo].[Media] (ISBN,  Content, ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
-	VALUES ('978-3-16-148416-0', @HtmlContent, N'Html Document 1', N'This is an example of an Html type media', @MediaDescription, 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
-INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148416-0'))
-
-INSERT INTO [dbo].[Media] (ISBN,  Content, ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
-	VALUES ('978-3-16-148417-0', N'This is the content of a text document. Salwa Bakr (born 1949) is an Egyptian critic, novelist and author.[1] She was born in the Matariyya district in Cairo in 1949. Her father was a railway worker. She studied business at Ain Shams University, gaining a BA degree in 1972. She went on to earn another BA in literary criticism in 1976, before embarking on a career in journalism. She worked as a film and theatre critic for various Arabic newspapers and magazines. Bakr lived in Cyprus for a few years with her husband before returning to Egypt in the mid-1980s.
-Bakr''s father died early, leaving her mother a poor widow. Her work often deals with the lives of the impoverished and the marginalized.[2] In 1985, she published her first collection of short stories, Zinat at the President''s Funeral, which was an immediate success. She has published several collections of short stories since. Her debut novel was called Wasf al-Bulbul (1993).
-Salwa Bakr is married with children and lives in Cairo.', N'Text Document 1', N'This is an example of a text type media', N'Text Document 1', 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeText, 'False', null)
-INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148417-0'))
+declare @textContent1 nvarchar(Max) = N'Algeria is a North African country with a Mediterranean coastline and a Saharan desert interior. Many empires have left legacies here, such as the ancient Roman ruins in seaside Tipaza. In the capital, Algiers, Ottoman landmarks like circa-1612 Ketchaoua Mosque line the hillside Casbah quarter, with its narrow alleys and stairways. The city’s Neo-Byzantine basilica Notre Dame d’Afrique dates to French colonial rule.'
+declare @textContent2 nvarchar(Max) = N'Ancient Algeria has known many empires and dynasties, including ancient Numidians, Phoenicians, Carthaginians, Romans, Vandals, Byzantines, Umayyads, Abbasids, Idrisid, Aghlabid, Rustamid, Fatimids, Zirid, Hammadids, Almoravids, Almohads, Spaniards, Ottomans and the French colonial empire. Berbers are the indigenous inhabitants of Algeria.'
+declare @textContent3 nvarchar(Max) = N'Algeria is a regional and middle power. The North African country supplies large amounts of natural gas to Europe, and energy exports are the backbone of the economy. According to OPEC Algeria has the 16th largest oil reserves in the world and the second largest in Africa, while it has the 9th largest reserves of natural gas. Sonatrach, the national oil company, is the largest company in Africa. Algeria has one of the largest militaries in Africa and the largest defence budget on the continent; most of Algeria''s weapons are imported from Russia, with whom they are a close ally.[12][13] Algeria is a member of the African Union, the Arab League, OPEC, the United Nations and is the founding member of the Maghreb Union.'
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148417-0', null, N'Algeria', N'A text document about Algeria', 1, 3, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeText, 'False', null)
+set @mediaId = (select Id from media where ISBN = '978-3-16-148417-0')
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 1 - Algeria - Geography.', @mediaId, 1)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 2 - Algeria - History', @mediaId, 2)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 3 - Algeria - Politics', @mediaId, 3)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 1, N'Page 1. ' + @textContent1)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 2, N'Page 2. ' + @textContent2)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 3, N'Page 3. ' + @textContent3)
+set @mediaId = (select Id from media where ISBN = '978-3-16-148417-0')
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, @mediaId)
 
 
 set @HtmlContent = '
@@ -234,7 +251,12 @@ set @MediaDescription =
 </p>
 '
 
-INSERT INTO [dbo].[Media] (ISBN,  Content, ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
-	VALUES ('978-3-16-148418-0', @HtmlContent, N'Html Document 2', N'This is an example of an Html type media', @MediaDescription, 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
-INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148418-0'))
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148418-0', null, N'What is Html (in Html format)', @MediaDescription, 1, 2, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
+set @mediaId = (select Id from media where ISBN = '978-3-16-148418-0')
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 1 - Html - Part I.', @mediaId, 1)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 2 - Html - Part II', @mediaId, 2)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 1, N'<p><b>Page 1</b></p>' + @HtmlContent)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 2, N'<p><b>Page 2</b></p>' + @HtmlContent)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, @mediaId)
 

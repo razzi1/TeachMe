@@ -12,7 +12,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-sm-11">
-                                <h3 class="panel-title small">Media Search</h3>
+                                <h3 class="panel-title well-sm">Media Search</h3>
                             </div>
                             <div class="col-sm-1">
                                 <button type="button" class="pull-right btn btn-link btn-sm" ng-click="vm.toggleSearchPanel()"><i ng-class="vm.searchPanelIsVisible ? ['glyphicon', 'glyphicon-collapse-up'] : ['glyphicon', 'glyphicon-collapse-down']"></i></button>
@@ -108,11 +108,13 @@
     <div ng-hide="!vm.mediaList || vm.mediaList.length == 0">
         <div class="row">
             <div class="col-sm-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <pagination num-pages="noOfPages" current-page="currentPage" class="pagination-sm"></pagination>
-                    </div>
-                    <div class="panel-body">
+                <pagination num-pages="noOfPages" current-page="currentPage" class="pagination-sm"></pagination>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-12">
                         <div ng-repeat="media in vm.mediaList" class="col-sm-4">
                             <div class="panel panel-body" href="#/media/{{media.id}}" style="border: 1px solid gray">
                                 <a href="#/media/{{media.id}}">
@@ -128,10 +130,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-footer">
-                        <pagination num-pages="noOfPages" current-page="currentPage" class="pagination-sm"></pagination>
-                    </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <pagination num-pages="noOfPages" current-page="currentPage" class="pagination-sm"></pagination>
             </div>
         </div>
     </div>

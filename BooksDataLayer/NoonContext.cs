@@ -17,6 +17,8 @@ namespace MediaDataLayer
         public virtual DbSet<Publisher> Publishers { get; set; }
         public virtual DbSet<MediaCollection> MediaCollections { get; set; }
         public virtual DbSet<StudentMediaScore> StudentMediaScores { get; set; }
+        public virtual DbSet<Chapter> Chapters { get; set; }
+        public virtual DbSet<ContentPage> ContentPages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -31,16 +33,6 @@ namespace MediaDataLayer
                     m.MapRightKey("Category_Id");
                     m.ToTable("MediaCategories");
                 });
-
-            //modelBuilder.Entity<Media>()
-            //    .HasMany(me => me.Authors)
-            //    .WithMany()
-            //    .Map(m =>
-            //    {
-            //        m.MapLeftKey("Media_Id");
-            //        m.MapRightKey("Author_Id");
-            //        m.ToTable("MediaAuthors");
-            //    });
         }
 
         IDbSet<TEntity> IDbConctext.Set<TEntity>()

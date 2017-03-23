@@ -5,12 +5,12 @@
 
     function MediaController(dataFactory, $routeParams) {
         var vm = this;
-        vm.mediaTypes = 
+        vm.mediaTypes =
         {
-            Text : 0,
-            Html : 1,
-            Image : 2,
-            Video : 3
+            Text: 0,
+            Html: 1,
+            Image: 2,
+            Video: 3
         };
         vm.isLoading = true;
         vm.mediaDetailsPanelIsVisible = true;
@@ -31,8 +31,8 @@
                   vm.media = result.data;
                   vm.media.page = 1;
                   vm.isLoading = false;
-                        toggleMediaDetailsPanel();
-                    },
+                  toggleMediaDetailsPanel();
+              },
               function (error) {
                   alert(error.message);
               });

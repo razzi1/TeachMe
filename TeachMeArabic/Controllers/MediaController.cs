@@ -65,8 +65,11 @@ namespace TeachMeArabic.Controllers
                 .Include(me => me.Language)
                 .Include(me => me.Categories)
                 .Include(me => me.Publisher)
+                .Include(me => me.ContentPages)
                 .Single(me => me.Id == id);
-            return Ok(Mapper.Map<Media, MediaModel>(media));
+            var mediaModels = Mapper.Map<Media, MediaModel>(media);
+            mediaModels.ContentPages = media.ContentPages.OrderBy(mtc => mtc.Sequence).ToList();
+            return Ok(mediaModels);
         }
     }
 }

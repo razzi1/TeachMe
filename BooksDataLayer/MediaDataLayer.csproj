@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Author.cs" />
+    <Compile Include="Entities\Chapter.cs" />
+    <Compile Include="Entities\ContentPage.cs" />
     <Compile Include="Entities\Media.cs" />
     <Compile Include="Entities\MediaLevel.cs" />
     <Compile Include="Entities\MediaCollection.cs" />
