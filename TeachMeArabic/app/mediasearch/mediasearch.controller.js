@@ -22,10 +22,11 @@
         vm.searchForMedia = searchForMedia;
         vm.toggleSearchPanel = toggleSearchPanel;
 
-        getMediaCount();
+        //getMediaCount();
         $scope.numPerPage = 6;
         $scope.setPage = function () {
-            $scope.data = getMediaPage(($scope.currentPage - 1) * $scope.numPerPage, $scope.numPerPage);
+            if ($scope.currentPage)
+                $scope.data = getMediaPage(($scope.currentPage - 1) * $scope.numPerPage, $scope.numPerPage);
         };
         $scope.$watch('currentPage', $scope.setPage);
 
@@ -77,13 +78,12 @@
         function getMediaPage(offset, limit) {
             vm.search.offset = offset;
             vm.search.limit = limit;
-            return searchForMedia();
+            return getMediaPageFromDataStore();
         }
 
-        function searchForMedia() {
-            vm.isSearching = true;
-            vm.isLoading = true;
-            dataFactory.search(vm.search)
+        function getMediaPageFromDataStore() {
+            vm.search.getCountOnly = false;
+            dataFactory.getMediaPage(vm.search)
                 .then(function (response) {
                     vm.mediaList = response.data;
                     vm.isSearching = false;
@@ -93,8 +93,24 @@
                     vm.isLoading = false;
                 }, function (error) {
                     vm.isSearching = false;
-                    alert('Unable to load media: ' + error.message);
+                    alert('Unable to search for media: ' + error.message);
                 });
+        }
+
+        function searchForMedia() {
+            vm.isSearching = true;
+            vm.isLoading = true;
+            vm.search.getCountOnly = true;
+            dataFactory.getMediaCount(vm.search)
+                .then(function (result) {
+                    $scope.noOfPages = Math.ceil(result.data.mediaCount / $scope.numPerPage);
+                        getMediaPageFromDataStore();
+                    }, function (error) {
+                    vm.isSearching = false;
+                    alert('Unable to search for media: ' + error.message);
+                }
+                );
+
         }
 
         function toggleSearchPanel() {

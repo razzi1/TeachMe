@@ -1,135 +1,136 @@
-﻿
-<div class="row">
-    <div class="col-sm-12">
-        <form name="mediaSearchForm" novalidate>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-sm-11">
-                            <h3 class="panel-title small">Media Search</h3>
+﻿<div class="row" ng-show="vm.isLoading">
+    <div class="col-sm-offset-1 col-sm-11 alert alert-warning">
+        <div class="text-center">Please wait while loading media information...</div>
+        <div><img class="center-block" id="spinner" src="../../Images/ajax-loader.gif"></div>
+    </div>
+</div>
+<div ng-hide="vm.isLoading">
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="mediaSearchForm" novalidate>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <h3 class="panel-title small">Media Search</h3>
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="pull-right btn btn-link btn-sm" ng-click="vm.toggleSearchPanel()"><i ng-class="vm.searchPanelIsVisible ? ['glyphicon', 'glyphicon-collapse-up'] : ['glyphicon', 'glyphicon-collapse-down']"></i></button>
+                            </div>
                         </div>
-                        <div class="col-sm-1">
-                            <button type="button" class="pull-right btn btn-link btn-sm" ng-click="vm.toggleSearchPanel()"><i ng-class="vm.searchPanelIsVisible ? ['glyphicon', 'glyphicon-collapse-up'] : ['glyphicon', 'glyphicon-collapse-down']"></i></button>
-                        </div>
-                    </div>
-                    <div class="row" ng-show="vm.mediaList && vm.mediaList.length == 0">
-                        <div class="col-sm-offset-1 col-sm-10 alert alert-danger">
-                            <div class="text-center">
-                                Your search returned no media. Please change your search criteria and try again.
+                        <div class="row" ng-show="vm.mediaList && vm.mediaList.length == 0">
+                            <div class="col-sm-offset-1 col-sm-10 alert alert-danger">
+                                <div class="text-center">
+                                    Your search returned no media. Please change your search criteria and try again.
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row" ng-show="vm.isLoading">
-                        <div class="col-sm-offset-1 col-sm-11 alert alert-warning">
-                            <div class="text-center">Please wait while loading media information...</div>
-                            <div><img class="center-block" id="spinner" src="../../Images/ajax-loader.gif"></div>
+                    <div id="search" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div ng-hide="vm.isLoading">
+                                <div class="row">
+                                    <div class="form-group col-sm-2">
+                                        <label for="types">
+                                            Type
+                                        </label>
+                                        <select id="categories"
+                                                name="categories"
+                                                class="form-control"
+                                                ng-model="vm.search.selectedCategory"
+                                                ng-options="category for category in vm.mediaCategories track by category"></select>
+                                    </div>
+                                    <div class="form-group col-sm-2">
+                                        <label for="languages">
+                                            Language
+                                        </label>
+                                        <select id="languages"
+                                                name="languages"
+                                                class="form-control"
+                                                ng-model="vm.search.selectedLanguage"
+                                                ng-options="language for language in vm.languages track by language"></select>
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="title">
+                                            Title
+                                        </label>
+                                        <input id="title"
+                                               name="title"
+                                               class="form-control"
+                                               ng-model="vm.search.title"
+                                               placeholder="title"
+                                               title="Media Title"
+                                               type="text" />
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="author">
+                                            Author
+                                        </label>
+                                        <input id="author"
+                                               name="author"
+                                               class="form-control"
+                                               ng-model="vm.search.author"
+                                               placeholder="author"
+                                               title="Media Author"
+                                               type="text" />
+                                    </div>
+                                    <div class="form-group col-sm-2">
+                                        <label for="types">
+                                            Keywords
+                                        </label>
+                                        <input id="keywords"
+                                               name="keywords"
+                                               class="form-control"
+                                               ng-model="vm.search.keywords"
+                                               placeholder="keywords"
+                                               title="Media Keywords"
+                                               type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row" ng-hide="vm.isLoading">
+                                <div class="col-sm-12">
+                                    <div class="pull-right">
+                                        <button type="button" ng-disabled="vm.isSearching" class="btn btn-primary btn-sm" ng-click="vm.searchForMedia()"><i class="glyphicon glyphicon-search"></i>&nbsp;Search</button>
+                                        <a class="btn btn-danger btn-sm" formnovalidate="formnovalidate" href="#/"><i class="glyphicon glyphicon-remove-circle"></i>&nbsp;Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div id="search" class="panel-collapse collapse">
+            </form>
+        </div>
+    </div>
+    <!-- Media list-->
+    <div ng-hide="!vm.mediaList || vm.mediaList.length == 0">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <pagination num-pages="noOfPages" current-page="currentPage" class="pagination-sm"></pagination>
+                    </div>
                     <div class="panel-body">
-                        <div ng-hide="vm.isLoading">
-                            <div class="row">
-                                <div class="form-group col-sm-2">
-                                    <label for="types">
-                                        Type
-                                    </label>
-                                    <select id="categories"
-                                            name="categories"
-                                            class="form-control"
-                                            ng-model="vm.search.selectedCategory"
-                                            ng-options="category for category in vm.mediaCategories track by category"></select>
-                                </div>
-                                <div class="form-group col-sm-2">
-                                    <label for="languages">
-                                        Language
-                                    </label>
-                                    <select id="languages"
-                                            name="languages"
-                                            class="form-control"
-                                            ng-model="vm.search.selectedLanguage"
-                                            ng-options="language for language in vm.languages track by language"></select>
-                                </div>
-                                <div class="form-group col-sm-3">
-                                    <label for="title">
-                                        Title
-                                    </label>
-                                    <input id="title"
-                                           name="title"
-                                           class="form-control"
-                                           ng-model="vm.search.title"
-                                           placeholder="title"
-                                           title="Media Title"
-                                           type="text" />
-                                </div>
-                                <div class="form-group col-sm-3">
-                                    <label for="author">
-                                        Author
-                                    </label>
-                                    <input id="author"
-                                           name="author"
-                                           class="form-control"
-                                           ng-model="vm.search.author"
-                                           placeholder="author"
-                                           title="Media Author"
-                                           type="text" />
-                                </div>
-                                <div class="form-group col-sm-2">
-                                    <label for="types">
-                                        Keywords
-                                    </label>
-                                    <input id="keywords"
-                                           name="keywords"
-                                           class="form-control"
-                                           ng-model="vm.search.keywords"
-                                           placeholder="keywords"
-                                           title="Media Keywords"
-                                           type="text" />
+                        <div ng-repeat="media in vm.mediaList" class="col-sm-4">
+                            <div class="panel panel-body" href="#/media/{{media.id}}" style="border: 1px solid gray">
+                                <a href="#/media/{{media.id}}">
+                                    <div class="row">
+                                        <img ng-show="media.mediaType == vm.mediaTypes.Image" class="img img-responsive img-rounded" ng-src="../../Images/{{media.contentLocation + '.jpg'}}" alt="{{vm.media.title}}" style="width: 100%; height: 200px">
+                                        <p ng-show="media.mediaType == vm.mediaTypes.Text" class="text-danger well-sm">{{media.description }}</p>
+                                        <p ng-show="media.mediaType == vm.mediaTypes.Html" ng-bind-html="media.description" class="text-danger well-sm"></p>
+                                    </div>
+                                </a>
+                                <div>
+                                    <h4 class="text-left text-success">{{media.title}}</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <div class="row" ng-hide="vm.isLoading">
-                            <div class="col-sm-12">
-                                <div class="pull-right">
-                                    <button type="button" ng-disabled="vm.isSearching" class="btn btn-primary btn-sm" ng-click="vm.searchForMedia()"><i class="glyphicon glyphicon-search"></i>&nbsp;Search</button>
-                                    <a class="btn btn-danger btn-sm" formnovalidate="formnovalidate" href="#/"><i class="glyphicon glyphicon-remove-circle"></i>&nbsp;Cancel</a>
-                                </div>
-                            </div>
-                        </div>
+                        <pagination num-pages="noOfPages" current-page="currentPage" class="pagination-sm"></pagination>
                     </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- Media list-->
-<div ng-hide="!vm.mediaList || vm.mediaList.length == 0">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <pagination num-pages="noOfPages" current-page="currentPage" class="pagination"></pagination>
-                </div>
-                <div class="panel-body">
-                    <div ng-repeat="media in vm.mediaList" class="col-sm-4">
-                        <div class="panel panel-body" href="#/media/{{media.id}}" style="border: 1px solid gray">
-                            <a href="#/media/{{media.id}}">
-                                <div class="row">
-                                    <img ng-show="media.mediaType == vm.mediaTypes.Image" class="img img-responsive img-rounded" ng-src="../../Images/{{media.contentLocation + '.jpg'}}" alt="{{vm.media.title}}" style="width: 100%; height: 200px">
-                                    <p ng-show="media.mediaType == vm.mediaTypes.Text" class="text-danger well-sm">{{media.description }}</p>
-                                    <p ng-show="media.mediaType == vm.mediaTypes.Html" ng-bind-html="media.description" class="text-danger well-sm"></p>
-                                </div>
-                            </a>
-                            <div>
-                                <h4 class="text-left text-success">{{media.title}}</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <pagination num-pages="noOfPages" current-page="currentPage" class="pagination-sm"></pagination>
                 </div>
             </div>
         </div>

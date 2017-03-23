@@ -22,12 +22,12 @@
 
         // Media
 
-        dataFactory.search = function (search) {
+        dataFactory.getMediaPage = function (search) {
             return $http.post(mediaUrlBase, search);
         };
 
-        dataFactory.getMediaCount = function () {
-            return $http.get(mediaUrlBase);
+        dataFactory.getMediaCount = function (search) {
+            return $http.post(mediaUrlBase, search);
         };
 
         dataFactory.getMedia = function (id) {
@@ -38,7 +38,7 @@
             return $http.post(mediaUrlBase, media);
         };
 
-        dataFactory.updateMedia= function (media) {
+        dataFactory.updateMedia = function (media) {
             return $http.put(mediaUrlBase + '/' + media.id, media);
         };
 

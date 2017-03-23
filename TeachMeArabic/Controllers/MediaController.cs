@@ -21,6 +21,10 @@ namespace TeachMeArabic.Controllers
         [HttpPost]
         public IHttpActionResult Post(Search search)
         {
+            return search.GetCountOnly ? GetMediaListCount(search) : GetMediaList(search);
+        }
+        private IHttpActionResult GetMediaList(Search search)
+        {
             var mediaList = repository.GetAll<Media>()
                 .Where(me =>
                     (search.SelectedLanguage.Equals("All (الكل)") || me.Language.Name == search.SelectedLanguage) &&
@@ -39,11 +43,16 @@ namespace TeachMeArabic.Controllers
             return Ok(result);
         }
 
-        public IHttpActionResult Get()
+        private IHttpActionResult GetMediaListCount(Search search)
         {
             var mediaCount = repository
                 .GetAll<Media>()
-                .Count();
+                .Count(me => (search.SelectedLanguage.Equals("All (الكل)") || me.Language.Name == search.SelectedLanguage) &&
+                    (search.SelectedCategory.Equals("All (الكل)") ||
+                     me.Categories.Any(mc => mc.Type == search.SelectedCategory)) &&
+                    (string.IsNullOrEmpty(search.Title) || me.Title.Contains(search.Title) ||
+                     me.Description.Contains(search.Title)) &&
+                    (string.IsNullOrEmpty(search.Author) || me.Authors.Any(a => a.Fullname.Contains(search.Author))));
             return Ok(new { mediaCount = mediaCount });
         }
 

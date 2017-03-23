@@ -8,6 +8,7 @@ namespace MediaDataLayer
 {
     public class Search
     {
+        public bool GetCountOnly { get; set; }
         public string SelectedLanguage { get; set; }
         public string SelectedCategory { get; set; }
         public string Title { get; set; }
