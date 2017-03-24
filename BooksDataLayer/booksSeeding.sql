@@ -73,9 +73,16 @@ INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Leve
 	VALUES (	'978-3-16-148410-0', N'ArabicLetters', N'الحروف العربية',
 				N'Arabic Alphabet, the first book in the I Love Arabic series, introduces young learners to the Arabic letters. This helpful and captivating book presents each letter with a delightful illustration, which ensures rapid and enjoyable learning. Arabic Alphabet is an exciting first book for young Arabic learners.هذا الكتاب يعلم الحروف العربية',
 				0, 12, @languageId1, @publisher1, 2000, 'True', 5.20, @MediaTypeImage, 'False', null)
-INSERT INTO [dbo].MediaCategories(Category_Id, Media_Id) Values(@categoryId1, (select Id from Media where ISBN = '978-3-16-148410-0'))
-INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148410-0'))
-INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId2, (select Id from Media where ISBN = '978-3-16-148410-0'))
+declare @mediaId int = (select Id from media where ISBN = '978-3-16-148410-0')
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values(N'1 - I love Arabic', @mediaId, 1)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values(N'1 - Arabic Alphabet', @mediaId, 5)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values(N'1 - من ا إلى ت', @mediaId, 6)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values(N'2 - من ث إلى ح', @mediaId, 9)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values(N'3 - من خ إلى ي', @mediaId, 12)
+
+INSERT INTO [dbo].MediaCategories(Category_Id, Media_Id) Values(@categoryId1, @mediaId)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, @mediaId)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId2, @mediaId)
 
 INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
 	VALUES ('978-3-16-148410-1', N'ArabicWritting', N'الكتابة العربية', N'.هذا الكتاب يعلم الكتابة العربية', 2, 10, @languageId2, @publisher2, 2002, 'True', 3.85, @MediaTypeImage, 'False', null)
@@ -135,7 +142,7 @@ INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Leve
 	VALUES ('978-3-16-148415-0', N'YasmineWaAlwahsh', N'Yasmine Wa Alwahsh', N'', 1, 10, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeImage, 'False', null)
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, (select Id from Media where ISBN = '978-3-16-148415-0'))
 
-declare @HtmlContent nvarchar(MAX) = N'
+declare @HtmlContent1 nvarchar(MAX) = N'
 <p>
     <b>Algeria</b> (
     <a target="_blank"  href="https://en.wikipedia.org/wiki/Arabic_language" class="mw-redirect" title="Arabic language">Arabic</a>
@@ -148,8 +155,11 @@ declare @HtmlContent nvarchar(MAX) = N'
     in 
     <a target="_blank"  href="https://en.wikipedia.org/wiki/North_Africa" title="North Africa">North Africa</a>
     on the 
-    <a target="_blank"  href="https://en.wikipedia.org/wiki/Mediterranean_Sea" title="Mediterranean Sea">Mediterranean coast</a>
-    . Its capital and most populous city is 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Mediterranean_Sea" title="Mediterranean Sea">Mediterranean coast</a>.
+'
+declare @HtmlContent2 nvarchar(MAX) = N'
+<p>
+	 Its capital and most populous city is 
     <a target="_blank"  href="https://en.wikipedia.org/wiki/Algiers" title="Algiers">Algiers</a>
     , located in the country''s far north. With an area of 2,381,741 square kilometres (919,595&nbsp;sq&nbsp;mi), Algeria is the 
     <a target="_blank"  href="https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_area" class="mw-redirect" title="List of countries and dependencies by area">tenth-largest country in the world</a>
@@ -170,8 +180,11 @@ declare @HtmlContent nvarchar(MAX) = N'
     , to the southeast by 
     <a target="_blank"  href="https://en.wikipedia.org/wiki/Niger" title="Niger">Niger</a>
     , and to the north by the 
-    <a target="_blank"  href="https://en.wikipedia.org/wiki/Mediterranean_Sea" title="Mediterranean Sea">Mediterranean Sea</a>
-    . The country is a 
+    <a target="_blank"  href="https://en.wikipedia.org/wiki/Mediterranean_Sea" title="Mediterranean Sea">Mediterranean Sea</a>.
+'
+declare @HtmlContent3 nvarchar(MAX) = N'
+<p>	
+	The country is a 
     <a target="_blank"  href="https://en.wikipedia.org/wiki/Semi-presidential_system" title="Semi-presidential system">semi-presidential republic</a>
     consisting of 48 provinces and 1,541 communes (counties). 
     <a target="_blank"  href="https://en.wikipedia.org/wiki/Abdelaziz_Bouteflika" title="Abdelaziz Bouteflika">Abdelaziz Bouteflika</a>
@@ -188,14 +201,14 @@ N'
 </p>
 '
 INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
-	VALUES ('978-3-16-148416-0', null, N'This is an example of an Html type media', @MediaDescription, 1, 3, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
-declare @mediaId int = (select Id from media where ISBN = '978-3-16-148416-0')
-INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 1 - Algeria Introduction (Html)', @mediaId, 1)
-INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 2 - Algeria Details (Html)', @mediaId, 2)
-INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 3 - Algeria Conclusion (Html)', @mediaId, 3)
-INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 1, N'<p><b>Page 1</b></p>' + @HtmlContent)
-INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 2, N'<p><b>Page 2</b></p>' + @HtmlContent)
-INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 3, N'<p><b>Page 3</b></p>' + @HtmlContent)
+	VALUES ('978-3-16-148416-0', null, N'Algeria (الجزائر)', @MediaDescription, 1, 3, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
+set @mediaId = (select Id from media where ISBN = '978-3-16-148416-0')
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('1 - Introduction', @mediaId, 1)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('2 - Geography', @mediaId, 2)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('3 - Political System', @mediaId, 3)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 1, @HtmlContent1)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 2, @HtmlContent2)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 3, @HtmlContent3)
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, @mediaId)
 
 declare @textContent1 nvarchar(Max) = N'Algeria is a North African country with a Mediterranean coastline and a Saharan desert interior. Many empires have left legacies here, such as the ancient Roman ruins in seaside Tipaza. In the capital, Algiers, Ottoman landmarks like circa-1612 Ketchaoua Mosque line the hillside Casbah quarter, with its narrow alleys and stairways. The city’s Neo-Byzantine basilica Notre Dame d’Afrique dates to French colonial rule.'
@@ -204,17 +217,17 @@ declare @textContent3 nvarchar(Max) = N'Algeria is a regional and middle power. 
 INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
 	VALUES ('978-3-16-148417-0', null, N'Algeria', N'A text document about Algeria', 1, 3, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeText, 'False', null)
 set @mediaId = (select Id from media where ISBN = '978-3-16-148417-0')
-INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 1 - Algeria - Geography.', @mediaId, 1)
-INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 2 - Algeria - History', @mediaId, 2)
-INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 3 - Algeria - Politics', @mediaId, 3)
-INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 1, N'Page 1. ' + @textContent1)
-INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 2, N'Page 2. ' + @textContent2)
-INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 3, N'Page 3. ' + @textContent3)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('1 - Geography.', @mediaId, 1)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('2 - History', @mediaId, 2)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('3 - Politics', @mediaId, 3)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 1, @textContent1)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 2, @textContent2)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 3, @textContent3)
 set @mediaId = (select Id from media where ISBN = '978-3-16-148417-0')
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, @mediaId)
 
 
-set @HtmlContent = '
+set @HtmlContent1 = '
 <p>
 	<b>HyperText Markup Language</b> (<b>HTML</b>) is the standard
 	<a href="https://en.wikipedia.org/wiki/Markup_language" target="_blank" title="Markup language">markup language</a>
@@ -227,8 +240,11 @@ set @HtmlContent = '
 	 (CSS) and 
 	<a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank" title="JavaScript">JavaScript</a>
 	  it forms a triad of cornerstone technologies for the 
-	<a href="https://en.wikipedia.org/wiki/World_Wide_Web" target="_blank" title="World Wide Web">World Wide Web</a>
-	  .<sup id="cite_ref-1" class="reference">
+	<a href="https://en.wikipedia.org/wiki/World_Wide_Web" target="_blank" title="World Wide Web">World Wide Web</a>.
+'
+set @HtmlContent2 = '
+<p>
+	  <sup id="cite_ref-1" class="reference">
 	<a href="https://en.wikipedia.org/wiki/HTML#cite_note-1">[1]</a></sup> 
 	<a href="https://en.wikipedia.org/wiki/Web_browser" target="_blank" title="Web browser">Web browsers</a>
 	   receive HTML documents from a 
@@ -252,11 +268,17 @@ set @MediaDescription =
 '
 
 INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
-	VALUES ('978-3-16-148418-0', null, N'What is Html (in Html format)', @MediaDescription, 1, 2, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
+	VALUES ('978-3-16-148418-0', null, N'What is Html', @MediaDescription, 1, 2, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeHtml, 'False', null)
 set @mediaId = (select Id from media where ISBN = '978-3-16-148418-0')
-INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 1 - Html - Part I.', @mediaId, 1)
-INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('Chapter 2 - Html - Part II', @mediaId, 2)
-INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 1, N'<p><b>Page 1</b></p>' + @HtmlContent)
-INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 2, N'<p><b>Page 2</b></p>' + @HtmlContent)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('1 - Html Part I.', @mediaId, 1)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('2 - Html - Part II', @mediaId, 2)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 1, @HtmlContent1)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 2, @HtmlContent2)
+INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, @mediaId)
+
+INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
+	VALUES ('978-3-16-148419-0', null, N'Earth', 'A video about Earth as seen from ISS Expeditions 28 & 29', 1, 1, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeVideo, 'False', null)
+set @mediaId = (select Id from media where ISBN = '978-3-16-148419-0')
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('1 - Earch seen from above', @mediaId, 1)
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, @mediaId)
 

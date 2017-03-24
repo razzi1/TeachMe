@@ -65,6 +65,7 @@ namespace TeachMeArabic.Controllers
                 .Include(me => me.Language)
                 .Include(me => me.Categories)
                 .Include(me => me.Publisher)
+                .Include(me => me.Chapters)
                 .Include(me => me.ContentPages)
                 .Single(me => me.Id == id);
             var mediaModels = Mapper.Map<Media, MediaModel>(media);
