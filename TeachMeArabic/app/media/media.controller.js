@@ -1,32 +1,22 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('app').controller('MediaController', ['dataFactory', '$routeParams', '$sce', MediaController]);
+    angular.module('app').controller('MediaController',
+        [
+            'dataFactory',
+            '$routeParams',
+            '$sce',
+            MediaController]);
 
     function MediaController(dataFactory, $routeParams, $sce) {
         var vm = this;
-        vm.mediaTypes = { Text: 0, Html: 1, Image: 2, Video: 3 };
-        vm.config = {
-            preload: "none",
-            sources: [
-                { src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.mp4"), type: "video/mp4" },
-                { src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.webm"), type: "video/webm" },
-                { src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.ogg"), type: "video/ogg" }
-            ],
-            tracks: [
-                {
-                    src: "http://www.videogular.com/assets/subs/pale-blue-dot.vtt",
-                    kind: "subtitles",
-                    srclang: "en",
-                    label: "English",
-                    default: ""
-                }
-            ],
-            theme: {
-                url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
-            }
+        vm.API = null;
+
+        vm.onPlayerReady = function (API) {
+            vm.API = API;
         };
 
+        vm.mediaTypes = { Text: 0, Html: 1, Image: 2, Video: 3 };
         vm.isLoading = true;
         vm.mediaDetailsPanelIsVisible = true;
         vm.searchPanelIsVisible = true;
@@ -37,6 +27,7 @@
         vm.previousPage = previousPage;
         vm.goToPage = goToPage;
         vm.toggleMediaDetailsPanel = toggleMediaDetailsPanel;
+        vm.gotoChapterStartingPage = gotoChapterStartingPage;
 
         getMedia($routeParams.id);
 
@@ -47,10 +38,42 @@
                   vm.media.page = 1;
                   vm.isLoading = false;
                   toggleMediaDetailsPanel();
+                  if (vm.media.mediaType === vm.mediaTypes.Video) configureVideo();
               },
               function (error) {
                   alert(error.message);
               });
+        }
+
+        function configureVideo() {
+            vm.config = {
+                preload: "none",
+                sources: [
+                    { src: $sce.trustAsResourceUrl(vm.media.contentPages[vm.media.page - 1].content), type: "video/mp4" }
+                ],
+                tracks: [
+                    {
+                        src: "http://www.videogular.com/assets/subs/pale-blue-dot.vtt",
+                        kind: "subtitles",
+                        srclang: "en",
+                        label: "English",
+                        default: ""
+                    }
+                ],
+                theme: {
+                    url: "Content/videogular.css"
+                }
+            };
+        }
+
+        function gotoChapterStartingPage(chapter) {
+            vm.media.page = chapter.startingPage;
+            if (vm.media.mediaType === vm.mediaTypes.Video) {
+                vm.API.stop();
+                vm.config.sources = [
+                    { src: $sce.trustAsResourceUrl(vm.media.contentPages[vm.media.page - 1].content), type: "video/mp4" }
+                ];
+            }
         }
 
         function goToPage() {

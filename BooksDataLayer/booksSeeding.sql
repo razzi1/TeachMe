@@ -276,9 +276,12 @@ INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 1,
 INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 2, @HtmlContent2)
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, @mediaId)
 
+-- Video media
 INSERT INTO [dbo].[Media] (ISBN,  ContentLocation, [Title], [Description], [Level], Pages, [LanguageId], PublisherId, YearPublished, IsFree, Price, MediaType, IsPartOfACollection, MediaCollectionId)
 	VALUES ('978-3-16-148419-0', null, N'Earth', 'A video about Earth as seen from ISS Expeditions 28 & 29', 1, 1, @languageId1, @publisher1, 2016, 'True', 0.00, @MediaTypeVideo, 'False', null)
 set @mediaId = (select Id from media where ISBN = '978-3-16-148419-0')
-INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('1 - Earch seen from above', @mediaId, 1)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('1 - Earth as seen from ISS Expeditions 28 & 29', @mediaId, 1)
+INSERT INTO [dbo].Chapters(Title, MediaId, StartingPage) Values('1 - Earch seen from above', @mediaId, 2)
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 1, 'http://static.videogular.com/assets/videos/videogular.mp4')
+INSERT INTO [dbo].ContentPages(MediaId, [Sequence], Content) Values(@mediaId, 2, 'Videos\Moon_Shadow_Cast_On_Earth_Seen_From_Space _ Video.mp4')
 INSERT INTO [dbo].MediaAuthors(Author_Id, Media_Id) Values(@authorId1, @mediaId)
-

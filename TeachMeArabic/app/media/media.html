@@ -50,7 +50,7 @@
                                 <h6 class="text-left text-primary"><b>Table of contents</b></h6>
                             </div>
                             <div class="row" ng-repeat="chapter in vm.media.chapters">
-                                <a class="text-left" style="cursor: pointer" formnovalidate="formnovalidate" ng-click="vm.media.page = chapter.startingPage"><small>{{chapter.title}}</small></a>
+                                <a class="text-left" style="cursor: pointer" formnovalidate="formnovalidate" ng-click="vm.gotoChapterStartingPage(chapter)"><small>{{chapter.title}}</small></a>
                             </div>
                         </div>
                         <!-- Content -->
@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="col-sm-12 well-sm">
                                     <div class="videogular-container">
-                                        <videogular vg-theme="vm.config.theme.url">
+                                        <videogular vg-player-ready="vm.onPlayerReady($API)" vg-theme="vm.config.theme.url">
                                             <vg-media vg-src="vm.config.sources"
                                                       vg-tracks="vm.config.tracks"
                                                       vg-native-controls="true">

@@ -216,8 +216,13 @@
     <Content Include="Scripts\overlay-play.min.js" />
     <Content Include="Scripts\poster.js" />
     <Content Include="Scripts\poster.min.js" />
+    <Content Include="Scripts\vg-buffering.js" />
+    <Content Include="Scripts\vg-controls.js" />
+    <Content Include="Scripts\vg-overlay-play.js" />
+    <Content Include="Scripts\vg-poster.js" />
     <Content Include="Scripts\videogular.js" />
     <Content Include="Scripts\videogular.min.js" />
+    <Content Include="Videos\Moon_Shadow_Cast_On_Earth_Seen_From_Space _ Video.mp4" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
