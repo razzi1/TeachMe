@@ -120,7 +120,7 @@
                                 <a href="#/media/{{media.id}}">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <img ng-show="media.mediaType == vm.mediaTypes.Image" class="img img-responsive img-rounded" ng-src="../../Images/{{media.contentLocation + '.jpg'}}" alt="{{vm.media.title}}" style="width: 100%; height: 200px">
+                                            <img ng-if="media.mediaType === vm.mediaTypes.Image" ng-show="media.mediaType == vm.mediaTypes.Image" class="img img-responsive img-rounded" ng-src="../../Images/{{media.contentLocation + '.jpg'}}" alt="{{vm.media.title}}" style="width: 100%; height: 200px">
                                             <p ng-show="media.mediaType == vm.mediaTypes.Text || media.mediaType == vm.mediaTypes.Video" class="text-danger well-sm">{{media.description }}</p>
                                             <p ng-show="media.mediaType == vm.mediaTypes.Html" ng-bind-html="media.description" class="text-danger well-sm"></p>
                                         </div>

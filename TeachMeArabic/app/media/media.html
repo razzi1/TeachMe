@@ -55,22 +55,22 @@
                         </div>
                         <!-- Content -->
                         <div class="col-sm-9">
-                            <div ng-show="vm.media.mediaType == vm.mediaTypes.Image" class="row">
+                            <div ng-show="vm.media.mediaType === vm.mediaTypes.Image" class="row">
                                 <div class="col-sm-12">
-                                    <img class="img img-responsive" ng-src="../../Images/{{vm.media.contentLocation + '-page'+ vm.media.page + '.jpg'}}" style="width: 100%">
+                                    <img ng-if="vm.media.mediaType === vm.mediaTypes.Image" class="img img-responsive" ng-src="../../Images/{{vm.media.contentLocation + '-page'+ vm.media.page + '.jpg'}}" style="width: 100%">
                                 </div>
                             </div>
-                            <div ng-show="vm.media.mediaType == vm.mediaTypes.Text" class="row">
+                            <div ng-show="vm.media.mediaType === vm.mediaTypes.Text" class="row">
                                 <div class="col-sm-12 well-sm">
                                     <p>{{vm.media.contentPages[vm.media.page-1].content}}</p>
                                 </div>
                             </div>
-                            <div ng-show="vm.media.mediaType == vm.mediaTypes.Html" class="row">
+                            <div ng-show="vm.media.mediaType === vm.mediaTypes.Html" class="row">
                                 <div class="col-sm-12 well-sm">
                                     <p ng-bind-html="vm.media.contentPages[vm.media.page-1].content"></p>
                                 </div>
                             </div>
-                            <div ng-show="vm.media.mediaType == vm.mediaTypes.Video" class="row">
+                            <div ng-show="vm.media.mediaType === vm.mediaTypes.Video" class="row">
                                 <div class="col-sm-12 well-sm">
                                     <p class="text-info">{{vm.media.description}}</p>
                                 </div>
