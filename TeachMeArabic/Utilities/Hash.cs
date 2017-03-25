@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace MediaDataLayer
+namespace TeachMeArabic.Utilities
 {
     public class Hash
     {

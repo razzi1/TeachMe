@@ -4,6 +4,8 @@ using System.Web.Http;
 using MediaDataLayer;
 using MediaDataLayer.Entities;
 using Repository;
+using TeachMeArabic.Models;
+using TeachMeArabic.Utilities;
 
 namespace TeachMeArabic.Controllers
 {
@@ -20,7 +22,7 @@ namespace TeachMeArabic.Controllers
         [HttpPost]
         public IHttpActionResult Post(Login login)
         {
-            var encryptedPassword = Hash.GetHashSha256(login.Password);
+            var encryptedPassword = Encrypt.EncryptString(login.Password);
             var student = repository
                 .GetAll<Student>()
                 .Include(s => s.Parent)
